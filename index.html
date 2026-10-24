@@ -3,17 +3,481 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="theme-color" content="#0b1020" />
+    <title>Java Notes | Learn Forge</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+      :root {
+        color-scheme: dark;
+        --bg: #0b1020;
+        --panel: #121a2e;
+        --border: #29344d;
+        --text: #edf2ff;
+        --muted: #9ba9c4;
+        --accent: #8b9cff;
+        --green: #75e0b0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(ellipse at top left, #18264a 0%, transparent 42%),
+          var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1100px, 90%);
+        margin: auto;
+      }
+
+      header {
+        border-bottom: 1px solid var(--border);
+        background: rgba(11, 16, 32, 0.85);
+      }
+
+      nav {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .brand-icon {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #8297ff, #6e63d9);
+        color: white;
+        font-size: 21px;
+      }
+
+      .nav-label {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      main {
+        padding: 76px 0 56px;
+      }
+
+      .hero {
+        max-width: 760px;
+        margin-bottom: 48px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 7px 12px;
+        border: 1px solid #344364;
+        border-radius: 999px;
+        color: #b8c5ff;
+        background: rgba(139, 156, 255, 0.08);
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 22px;
+      }
+
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      h1 {
+        max-width: 700px;
+        font-size: clamp(38px, 6vw, 66px);
+        line-height: 1.1;
+        letter-spacing: -2.8px;
+        margin-bottom: 22px;
+      }
+
+      h1 span {
+        color: var(--accent);
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 620px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 54px;
+      }
+
+      .stat {
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: rgba(18, 26, 46, 0.7);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 24px;
+        margin-bottom: 3px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .section-heading h2 {
+        font-size: 25px;
+        letter-spacing: -0.8px;
+      }
+
+      .section-heading p {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .note-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 290px;
+        padding: 24px;
+        overflow: hidden;
+        background: linear-gradient(145deg, #151f36, #101728);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .note-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--accent);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+      }
+
+      .note-icon {
+        display: grid;
+        place-items: center;
+        width: 54px;
+        height: 54px;
+        margin-bottom: 25px;
+        border-radius: 16px;
+        font-size: 25px;
+        background: #273252;
+      }
+
+      .note-card:nth-child(2) .note-icon {
+        background: #3a293b;
+      }
+
+      .note-card:nth-child(3) .note-icon {
+        background: #203b3b;
+      }
+
+      .tag {
+        align-self: flex-start;
+        padding: 4px 9px;
+        margin-bottom: 12px;
+        color: #bdc8ff;
+        background: #252f4c;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+      }
+
+      .note-card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+      }
+
+      .note-card p {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 25px;
+      }
+
+      .card-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 15px;
+        border-top: 1px solid var(--border);
+        color: #b9c6ff;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .arrow {
+        font-size: 20px;
+        transition: transform 0.2s ease;
+      }
+
+      .note-card:hover .arrow {
+        transform: translateX(5px);
+      }
+
+      .tip {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 22px;
+        margin-top: 32px;
+        border: 1px solid #344364;
+        border-radius: 16px;
+        background: rgba(139, 156, 255, 0.06);
+      }
+
+      .tip-icon {
+        font-size: 22px;
+      }
+
+      .tip h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .tip p {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 25px 0;
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+      }
+
+      @media (max-width: 800px) {
+        .notes-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        main {
+          padding-top: 55px;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .nav-label {
+          display: none;
+        }
+
+        .stats {
+          gap: 9px;
+        }
+
+        .stat {
+          padding: 13px;
+        }
+
+        .stat strong {
+          font-size: 20px;
+        }
+
+        .stat span {
+          font-size: 10px;
+        }
+
+        .notes-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .note-card {
+          min-height: 255px;
+        }
+
+        h1 {
+          letter-spacing: -1.8px;
+        }
+
+        .section-heading {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <ol>
-      <li><a href="./OOPS/index.html">OOPS Notes</a></li>
-      <li>
-        <a href="./ExceptionHandling/index.html">Exception Handling Notes</a>
-      </li>
-      <li>
-        <a href="./MultiThreading/">MultiThreading Notes</a>
-      </li>
-    </ol>
+    <header>
+      <nav class="container">
+        <a class="brand" href="./index.html">
+          <span class="brand-icon">J</span>
+          <span> <span style="color: #8b9cff"> Java Notes</span></span>
+        </a>
+        <span class="nav-label">Core concepts · Learning notes</span>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          YOUR JAVA LEARNING SPACE
+        </div>
+
+        <h1>Master Java, one concept <span>at a time.</span></h1>
+
+        <p>
+          Clear notes, practical examples, and essential concepts to help you
+          understand Java fundamentals and prepare for technical interviews.
+          Pick a topic and continue learning.
+        </p>
+      </section>
+
+      <section class="stats" aria-label="Notes overview">
+        <div class="stat">
+          <strong>03</strong>
+          <span>Learning modules</span>
+        </div>
+        <div class="stat">
+          <strong>Java</strong>
+          <span>Programming language</span>
+        </div>
+        <div class="stat">
+          <strong>Learn</strong>
+          <span>Practice at your pace</span>
+        </div>
+      </section>
+
+      <section id="notes">
+        <div class="section-heading">
+          <div>
+            <h2>Explore your notes</h2>
+            <p>Choose a module to open its complete notes.</p>
+          </div>
+          <p>3 topics available</p>
+        </div>
+
+        <div class="notes-grid">
+          <a class="note-card" href="./OOPS/index.html">
+            <div class="note-icon">🧩</div>
+            <span class="tag">Fundamentals</span>
+            <h3>Object-Oriented Programming</h3>
+            <p>
+              Learn classes, objects, encapsulation, inheritance, polymorphism,
+              abstraction, and core OOP concepts.
+            </p>
+            <div class="card-link">
+              <span>Explore OOP notes</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+
+          <a class="note-card" href="./ExceptionHandling/index.html">
+            <div class="note-icon">🛡️</div>
+            <span class="tag">Error management</span>
+            <h3>Exception Handling</h3>
+            <p>
+              Understand exceptions, try-catch-finally, throw, throws, custom
+              exceptions, and error handling.
+            </p>
+            <div class="card-link">
+              <span>Explore exception notes</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+
+          <a class="note-card" href="./MultiThreading/">
+            <div class="note-icon">⚡</div>
+            <span class="tag">Concurrency</span>
+            <h3>Multithreading</h3>
+            <p>
+              Explore threads, thread life cycles, synchronization, concurrency,
+              and executing tasks simultaneously.
+            </p>
+            <div class="card-link">
+              <span>Explore multithreading notes</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <aside class="tip">
+        <span class="tip-icon">💡</span>
+        <div>
+          <h3>Recommended learning path</h3>
+          <p>
+            Start with OOP fundamentals, move on to exception handling, and then
+            explore multithreading. Practice the examples as you progress
+            through each topic.
+          </p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div class="container">
+        Java Learning Notes · Learn something new every day.
+      </div>
+    </footer>
   </body>
 </html>
