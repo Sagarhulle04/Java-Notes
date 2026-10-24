@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Complete beginner-friendly notes on multithreading in Java, including synchronization, concurrency utilities, runnable examples, interview questions, and practice.">
+<title>Multithreading in Java — Complete Learning Notes</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0f1c;--panel:#121a2a;--panel2:#172238;--border:#2a3850;--text:#e8eef8;--muted:#aab8cd;--blue:#7bc0ff;--purple:#c7a5ff;--green:#7fe0b3;--amber:#ffd18a;--red:#ff9696;--shadow:0 14px 38px #0004}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 0% 0%,#14233d 0,transparent 38%),var(--bg);color:var(--text);font:16px/1.72 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}a{color:var(--blue)}button,input,select{font:inherit}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px clamp(14px,4vw,46px);background:#0a0f1cf0;border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}.brand{font-weight:850;letter-spacing:.02em;white-space:nowrap}.brand span{color:var(--blue)}.tools{display:flex;gap:8px;align-items:center}.search{width:min(30vw,285px);min-width:115px;background:var(--panel);border:1px solid var(--border);color:var(--text);padding:8px 11px;border-radius:10px}.btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:7px 11px;border-radius:10px;cursor:pointer}.btn:hover{border-color:var(--blue);color:#fff}.layout{display:grid;grid-template-columns:255px minmax(0,1fr);max-width:1540px;margin:auto}.sidebar{position:sticky;top:64px;align-self:start;height:calc(100vh - 64px);overflow:auto;padding:22px 15px;border-right:1px solid var(--border)}.sidebar h3{margin:0 0 11px;color:var(--muted);font-size:.75rem;letter-spacing:.13em;text-transform:uppercase}.navlink{display:block;margin:3px 0;padding:7px 10px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:.91rem}.navlink:hover,.navlink.active{background:#1b2d48;color:var(--blue)}main{min-width:0;max-width:1120px;padding:clamp(18px,4vw,50px)}.hero{padding:clamp(24px,5vw,46px);border:1px solid #334967;border-radius:22px;background:linear-gradient(135deg,#172a46,#151a31 68%,#241a3a);box-shadow:var(--shadow)}.eyebrow,.micro{color:var(--green);font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em}.hero h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.1;letter-spacing:-.035em;margin:.5rem 0 1rem}.hero p{max-width:780px;color:#c7d4e8;font-size:1.08rem}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.chip,.tag{display:inline-block;font-size:.78rem;padding:4px 9px;border-radius:999px;border:1px solid #3a4f70;background:#14243d;color:#d7e9ff}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:17px 0 30px}.stat,.card,.example,.callout,.practice{border:1px solid var(--border);background:var(--panel);border-radius:15px;padding:18px}.stat strong{display:block;font-size:1.55rem;color:var(--blue)}.stat span{font-size:.86rem;color:var(--muted)}.section{margin-top:43px}.section>h2{font-size:clamp(1.55rem,3vw,2.1rem);line-height:1.25;margin:0 0 8px;letter-spacing:-.02em}.intro{color:var(--muted);margin-top:0}.subsection{margin-top:27px}.subsection h3{font-size:1.23rem;margin:0 0 8px}.definition{border-left:3px solid var(--blue);background:#13223a;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0}.tip{border-left:3px solid var(--purple);background:#211c36;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0}.warning{border-left:3px solid var(--amber);background:#2b2418;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0}.success{border-left:3px solid var(--green);background:#142a25;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0}.danger{border-left:3px solid var(--red);background:#301d25;border-radius:0 10px 10px 0;padding:13px 16px;margin:13px 0}.muted{color:var(--muted)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.card h3,.example h3,.practice h3{margin-top:0}.codebox{border:1px solid #2b3549;border-radius:13px;background:#080d16;overflow:hidden;margin:13px 0}.codehead{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#141c2a;color:#b8c8dd;font-size:.76rem;letter-spacing:.09em}.codebox pre{margin:0;padding:16px;overflow:auto;white-space:pre;font: .89rem/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce8fa;tab-size:4}.codebox code{font:inherit;color:inherit}.output{background:#050b09;border:1px solid #23473c;color:#8de5b6;border-radius:12px;padding:13px 15px;margin:12px 0;font: .9rem/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}.output:before{content:"EXPECTED OUTPUT / TERMINAL";display:block;font:800 .68rem system-ui;color:var(--green);letter-spacing:.11em;margin-bottom:7px}.tablewrap{overflow:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}table{border-collapse:collapse;width:100%;min-width:540px}th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--border)}th{background:#1b2940;color:#deebff}tr:last-child td{border-bottom:0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#b9dcff}.qa{margin:13px 0;padding:0;background:var(--panel);border:1px solid var(--border);border-radius:15px;overflow:hidden}.qhead{display:flex;align-items:flex-start;gap:11px;cursor:pointer;list-style:none;padding:15px 17px}.qhead::-webkit-details-marker{display:none}.qnum{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:9px;background:#20324c;color:var(--blue);font-weight:850;font-size:.86rem}.qtitle{flex:1;font-weight:750}.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.badge{font-size:.7rem;padding:2px 8px;border-radius:99px;background:#25334a;color:#c6d6e9}.easy{color:var(--green)}.medium{color:var(--amber)}.advanced{color:var(--purple)}.chevron{color:var(--muted);transition:transform .2s}.qa[open] .chevron{transform:rotate(180deg)}.answer{padding:17px 19px;border-top:1px solid var(--border)}.answer h4{margin:0 0 8px;color:var(--green)}.follow{margin-top:12px;padding:12px 14px;background:#1a2337;border-radius:10px}.follow strong{color:var(--purple)}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:15px 0}.progressbar{height:7px;background:#26334a;border-radius:99px;overflow:hidden;margin-top:9px}.progressbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .2s}.checkrow{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #263247;align-items:flex-start}.checkrow input{margin-top:7px;accent-color:#7bc0ff}.pilltitle{font-size:.73rem;color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.1em}.hidden-search{display:none!important}.mobile-nav{display:none}.quiz-option{display:block;width:100%;text-align:left;padding:10px 12px;margin:7px 0;background:#111a29;color:var(--text);border:1px solid var(--border);border-radius:9px;cursor:pointer}.quiz-option:hover{border-color:var(--blue)}.quiz-option:disabled{cursor:default;opacity:.8}.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.87rem}.diagram{overflow-x:auto;background:#080d16;border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;font-family:ui-monospace,Consolas,monospace;color:#cde1f9}.diagram .arrow{color:var(--purple);padding:0 8px}.mobile-nav select{width:100%;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px}
+@media(max-width:920px){.layout{grid-template-columns:1fr}.sidebar{display:none}.mobile-nav{display:block;margin:14px 0}main{padding:20px}.topbar{padding:10px 13px}.search{width:min(40vw,230px)}}
+@media(max-width:620px){.brand{font-size:.9rem}.tools{gap:5px}.tools .btn{padding:7px;font-size:.78rem}.search{min-width:85px;width:30vw}.stats,.grid2,.grid3{grid-template-columns:1fr}.hero{border-radius:16px}.hero h1{font-size:2.35rem}.stat{padding:13px}.qhead{padding:12px}.answer{padding:13px}.section{margin-top:34px}}
+@media print{.topbar,.sidebar,.mobile-nav,.controls,.search,.btn{display:none!important}.layout{display:block}main{max-width:none;padding:0}.hero,.card,.example,.qa,.practice,.callout{break-inside:avoid;background:#fff;color:#111;border-color:#bbb}.muted,.intro{color:#444}.qa:not([open]) .answer{display:block}.codebox,.output{background:#f4f4f4;color:#111;border-color:#aaa}.codehead{background:#ddd;color:#111}body{background:white;color:#111}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Learn<span>Forge</span> <span style="color:var(--muted);font-weight:500">/ Java Concurrency</span></div>
+  <div class="tools">
+    <input id="searchInput" class="search" type="search" placeholder="Search notes…" aria-label="Search notes">
+    <button class="btn" id="expandBtn">Expand all</button>
+    <button class="btn" onclick="window.print()">Print</button>
+  </div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <h3>Course contents</h3>
+  <a class="navlink active" href="#overview">Overview</a>
+  <a class="navlink" href="#fundamentals">1. Fundamentals</a>
+  <a class="navlink" href="#lifecycle">2. Thread lifecycle</a>
+  <a class="navlink" href="#creation">3. Creating threads</a>
+  <a class="navlink" href="#coordination">4. Coordination methods</a>
+  <a class="navlink" href="#synchronization">5. Synchronization & visibility</a>
+  <a class="navlink" href="#locks">6. Locks & atomics</a>
+  <a class="navlink" href="#hazards">7. Concurrency hazards</a>
+  <a class="navlink" href="#executors">8. Executors & futures</a>
+  <a class="navlink" href="#utilities">9. Concurrent utilities</a>
+  <a class="navlink" href="#virtual">10. Virtual threads</a>
+  <a class="navlink" href="#comparisons">11. Comparisons</a>
+  <a class="navlink" href="#realworld">12. Real-world examples</a>
+  <a class="navlink" href="#interview">13. Interview Q&A</a>
+  <a class="navlink" href="#practice">14. Practice lab</a>
+  <a class="navlink" href="#revision">15. Quick revision</a>
+  <a class="navlink" href="#mock">16. Mock interview</a>
+  <div class="card" style="margin-top:22px;padding:13px">
+    <div class="pilltitle">Revision progress</div>
+    <strong id="progressText">0 / 10 complete</strong>
+    <div class="progressbar"><span id="progressFill"></span></div>
+    <p class="muted" style="font-size:.78rem;margin-bottom:0">Mark key topics as revised.</p>
+  </div>
+</aside>
+<main>
+<div class="mobile-nav"><select id="mobileNav" aria-label="Jump to section"><option value="">Jump to a section…</option><option value="#fundamentals">Fundamentals</option><option value="#lifecycle">Thread lifecycle</option><option value="#creation">Creating threads</option><option value="#coordination">Coordination methods</option><option value="#synchronization">Synchronization</option><option value="#locks">Locks & atomics</option><option value="#hazards">Concurrency hazards</option><option value="#executors">Executors & futures</option><option value="#utilities">Concurrent utilities</option><option value="#virtual">Virtual threads</option><option value="#comparisons">Comparisons</option><option value="#realworld">Real-world examples</option><option value="#interview">Interview Q&A</option><option value="#practice">Practice lab</option><option value="#revision">Quick revision</option><option value="#mock">Mock interview</option></select></div>
+
+<section class="hero searchable" id="overview">
+  <div class="eyebrow">Core Java • Concurrency • Placement Preparation</div>
+  <h1>Multithreading<br>in Java</h1>
+  <p>From your first <code>Thread</code> and <code>Runnable</code> to synchronization, thread safety, executor services, futures, and virtual threads. Learn the concepts, inspect runnable examples, and practise interview-style questions.</p>
+  <div class="chips"><span class="chip">Beginner → Advanced</span><span class="chip">JDK 17+ examples</span><span class="chip">Java 21 virtual threads</span><span class="chip">Runnable examples</span><span class="chip">Interview Q&A</span></div>
+</section>
+<div class="stats"><div class="stat"><strong>10+</strong><span>Core topic modules</span></div><div class="stat"><strong>25</strong><span>Interview question cards</span></div><div class="stat"><strong>8</strong><span>Guided practice tasks</span></div></div>
+
+<div class="callout definition searchable"><b>Definition:</b> Multithreading is the ability of a program to have multiple threads of execution making progress during overlapping periods. Threads in the same Java process share heap objects, but each thread has its own call stack and execution state.</div>
+<div class="callout tip searchable"><b>Core idea:</b> Multithreading is not only about creating threads. Correct concurrent programming also requires managing shared state, coordinating tasks, handling failures and cancellation, and choosing a suitable execution strategy.</div>
+<div class="callout warning searchable"><b>Version assumption:</b> Most examples use standard Java syntax compatible with modern JDKs (typically Java 17+). The virtual-thread section requires Java 21 or later. Thread scheduling and the interleaving of concurrent output are not deterministic; outputs marked “one possible output” may appear in a different order.</div>
+
+<section class="section searchable" id="fundamentals">
+<h2>1. Multithreading fundamentals</h2><p class="intro">Learn what a thread is, why programs use it, and the difference between concurrency and parallelism.</p>
+<div class="subsection">
+<h3>1.1 What is a thread?</h3>
+<div class="definition"><b>Thread:</b> The smallest independently schedulable sequence of instructions exposed by the Java threading model. A Java process can contain multiple threads.</div>
+<ul>
+<li><b>Thread-local execution state:</b> each thread has its own call stack, program counter and method-call frames.</li>
+<li><b>Shared process resources:</b> threads commonly share heap objects, static fields, open files and other process resources.</li>
+<li><b>Task:</b> the work to be executed. In Java, task logic is commonly expressed as a <code>Runnable</code> or <code>Callable</code>.</li>
+<li><b>Scheduler:</b> the runtime and operating system decide when runnable threads get CPU time; application code should not rely on a particular scheduling order.</li>
+</ul>
+<div class="diagram"><div>Java Process</div><div style="color:var(--muted)">Shared heap • class data • resources</div><div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px"><span>Thread A<br>Stack A</span><span>Thread B<br>Stack B</span><span>Thread C<br>Stack C</span></div></div>
+</div>
+<div class="subsection">
+<h3>1.2 Why use multithreading?</h3>
+<div class="grid2">
+<div class="card"><h3>Responsiveness</h3><p>Perform slow work away from a user-interface thread so the interface can continue responding.</p></div>
+<div class="card"><h3>I/O overlap</h3><p>While one task waits for a network or file operation, other tasks may progress.</p></div>
+<div class="card"><h3>Throughput</h3><p>Serve multiple requests concurrently, subject to CPU, memory, network and downstream limits.</p></div>
+<div class="card"><h3>CPU parallelism</h3><p>On suitable hardware, independent CPU-bound tasks may run on multiple cores at the same time.</p></div>
+</div>
+<div class="warning"><b>Trade-offs:</b> Threads add coordination costs, shared-state hazards, debugging complexity, memory use and context-switch overhead. More threads do not automatically mean faster execution.</div>
+</div>
+<div class="subsection">
+<h3>1.3 Concurrency vs parallelism</h3>
+<div class="tablewrap"><table><thead><tr><th>Concept</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+<tr><td>Concurrency</td><td>Multiple tasks are in progress over overlapping time periods; work may take turns.</td><td>A server alternates among requests while they wait for I/O.</td></tr>
+<tr><td>Parallelism</td><td>Multiple tasks execute at the same instant on different execution resources.</td><td>Two CPU-intensive tasks run on separate cores.</td></tr>
+<tr><td>Multithreading</td><td>A programming technique that uses multiple threads; it can provide concurrency and, depending on runtime and hardware, parallelism.</td><td>Several Java worker threads process tasks.</td></tr>
+</tbody></table></div>
+</div>
+<div class="subsection">
+<h3>1.4 Process vs thread</h3>
+<div class="tablewrap"><table><thead><tr><th>Process</th><th>Thread</th></tr></thead><tbody>
+<tr><td>An executing program instance with its own address space in typical operating systems.</td><td>An execution path within a process.</td></tr>
+<tr><td>Processes are more strongly isolated from each other.</td><td>Threads in a process share heap memory and resources.</td></tr>
+<tr><td>Inter-process communication often needs explicit mechanisms.</td><td>Threads can communicate through shared objects, which requires safe coordination.</td></tr>
+<tr><td>Starting and switching processes may have higher overhead.</td><td>Threads can be lighter-weight, though costs depend on the thread type and runtime.</td></tr>
+<tr><td>A process crash is often isolated from other processes.</td><td>An uncaught exception in one thread usually terminates that thread, not automatically the entire JVM.</td></tr>
+</tbody></table></div>
+</div>
+<div class="subsection">
+<h3>1.5 First runnable example</h3>
+<p><b>Problem:</b> Run two independent tasks whose printed messages may interleave.</p>
+<p><b>Approach:</b> Put task logic in <code>Runnable</code> instances, create threads, and call <code>start()</code> to schedule each task.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Main.java</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) {
+        Runnable task = () -> {
+            for (int i = 1; i <= 3; i++) {
+                System.out.println(
+                    Thread.currentThread().getName() + " : " + i
+                );
+            }
+        };
+
+        Thread first = new Thread(task, "Worker-A");
+        Thread second = new Thread(task, "Worker-B");
+
+        first.start();
+        second.start();
+    }
+}</code></pre></div>
+<div class="output">One possible output (the ordering can vary):
+Worker-A : 1
+Worker-A : 2
+Worker-B : 1
+Worker-A : 3
+Worker-B : 2
+Worker-B : 3</div>
+<p><b>Execution:</b> The lambda is the task. Each <code>Thread</code> object is given that task. Calling <code>start()</code> asks Java to begin a new thread of execution; that thread invokes the task's <code>run()</code> method. The runtime may interleave output differently.</p>
+<p><b>Complexity:</b> Each worker performs three constant-time print operations, so the algorithmic work per worker is O(1) for this fixed loop count; generalising to n iterations yields O(n) work. Two platform threads add scheduling and stack/resource overhead.</p>
+<div class="warning"><b>Common mistake:</b> Calling <code>first.run()</code> directly does not start a separate thread. It executes the method on the calling thread.</div>
+</div>
+</section>
+
+<section class="section searchable" id="lifecycle">
+<h2>2. Thread lifecycle and states</h2><p class="intro">Java defines a set of observable thread states through <code>Thread.State</code>. They are not a perfect one-to-one representation of every operating-system state.</p>
+<div class="diagram">NEW <span class="arrow">→ start()</span> RUNNABLE <span class="arrow">→ run completes</span> TERMINATED<br><br>RUNNABLE <span class="arrow">→ monitor unavailable</span> BLOCKED<br>RUNNABLE <span class="arrow">→ wait / join</span> WAITING<br>RUNNABLE <span class="arrow">→ timed wait / sleep</span> TIMED_WAITING</div>
+<div class="tablewrap"><table><thead><tr><th>Java state</th><th>Meaning</th><th>Typical cause</th></tr></thead><tbody>
+<tr><td><code>NEW</code></td><td>Thread object exists but execution has not started.</td><td><code>new Thread(task)</code> before <code>start()</code>.</td></tr>
+<tr><td><code>RUNNABLE</code></td><td>Thread is executing or eligible to run; Java does not split OS running vs ready into distinct states.</td><td>After <code>start()</code>, or after leaving a wait state.</td></tr>
+<tr><td><code>BLOCKED</code></td><td>Waiting to acquire an intrinsic monitor lock.</td><td>Trying to enter a <code>synchronized</code> block whose monitor is owned by another thread.</td></tr>
+<tr><td><code>WAITING</code></td><td>Waiting indefinitely for another thread or action.</td><td><code>Object.wait()</code>, <code>Thread.join()</code> without timeout, or <code>LockSupport.park()</code>.</td></tr>
+<tr><td><code>TIMED_WAITING</code></td><td>Waiting for a limited time.</td><td><code>Thread.sleep()</code>, timed <code>wait()</code>, or timed <code>join()</code>.</td></tr>
+<tr><td><code>TERMINATED</code></td><td>The thread's execution has finished.</td><td><code>run()</code> returns or ends due to an uncaught exception.</td></tr>
+</tbody></table></div>
+<div class="subsection">
+<h3>Example: inspect a thread state</h3>
+<div class="codebox"><div class="codehead"><span>JAVA • Main.java</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = new Thread(() -> {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }, "worker");
+
+        System.out.println(worker.getState());
+        worker.start();
+        Thread.sleep(50);
+        System.out.println(worker.getState());
+        worker.join();
+        System.out.println(worker.getState());
+    }
+}</code></pre></div>
+<div class="output">Typical output:
+NEW
+TIMED_WAITING
+TERMINATED</div>
+<p>The middle observation is timing-dependent; under unusual scheduling conditions it may differ. The first and final states are stable at their respective points.</p>
+</div>
+<div class="tip"><b>Interview tip:</b> A Java thread in <code>RUNNABLE</code> might be actually running or waiting for processor time. Do not describe it as “definitely using CPU right now.”</div>
+</section>
+
+<section class="section searchable" id="creation">
+<h2>3. Creating and starting threads</h2>
+<div class="subsection">
+<h3>3.1 Extend <code>Thread</code></h3>
+<p>Override <code>run()</code>, then create an instance and call <code>start()</code>. This tightly couples task code with a thread and uses up the class's one superclass slot.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class GreetingThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Hello from " + getName());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        new GreetingThread().start();
+    }
+}</code></pre></div>
+<div class="output">Hello from Thread-0</div>
+<p>The default thread name is commonly <code>Thread-0</code> for the first automatically named thread in a simple program, but code should not depend on that exact name. You can set a name with <code>setName()</code> or the constructor.</p>
+</div>
+<div class="subsection">
+<h3>3.2 Implement <code>Runnable</code> — a common basic choice</h3>
+<p><code>Runnable</code> represents a task that returns no result. Separating the task from the thread lets the task be used with a raw thread or an executor.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) {
+        Runnable task = () -> System.out.println("Task is running");
+        Thread thread = new Thread(task);
+        thread.start();
+    }
+}</code></pre></div>
+<div class="output">Task is running</div>
+</div>
+<div class="subsection">
+<h3>3.3 Use <code>Callable</code> and <code>Future</code> for a result</h3>
+<p><code>Callable&lt;V&gt;</code> returns a value and can throw checked exceptions. It is normally submitted to an executor, which returns a <code>Future&lt;V&gt;</code>.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Main.java</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ExecutorService pool = Executors.newSingleThreadExecutor();
+        try {
+            Future&lt;Integer&gt; result = pool.submit(() -> 20 + 22);
+            System.out.println(result.get());
+        } finally {
+            pool.shutdown();
+        }
+    }
+}</code></pre></div>
+<div class="output">42</div>
+<p><b>Important:</b> <code>Future.get()</code> waits if the result is not ready. Here the task is tiny, but in real applications avoid blocking important threads unnecessarily.</p>
+</div>
+<div class="subsection">
+<h3>3.4 <code>start()</code> vs <code>run()</code></h3>
+<div class="tablewrap"><table><thead><tr><th><code>start()</code></th><th><code>run()</code></th></tr></thead><tbody>
+<tr><td>Initiates a new thread of execution (subject to runtime scheduling).</td><td>Is an ordinary method invocation when called directly.</td></tr>
+<tr><td>The new thread eventually invokes the target's <code>run()</code>.</td><td>Runs on whichever thread called it.</td></tr>
+<tr><td>A thread object can be started at most once.</td><td>A task object's method can be called again as an ordinary method, but that does not create a thread.</td></tr>
+<tr><td>Calling <code>start()</code> again on the same thread throws <code>IllegalThreadStateException</code>.</td><td>Calling <code>run()</code> directly does not change the thread state to a new execution.</td></tr>
+</tbody></table></div>
+<div class="codebox"><div class="codehead"><span>JAVA • Output puzzle</span><button class="btn copy-btn">Copy code</button></div><pre><code>Thread t = new Thread(() ->
+    System.out.println(Thread.currentThread().getName())
+);
+t.run();
+t.start();</code></pre></div>
+<div class="output">main
+Thread-0</div>
+<p>The first line is printed by the caller thread, conventionally named <code>main</code>. The second is printed by the newly started thread; its default name can vary by context.</p>
+</div>
+</section>
+
+<section class="section searchable" id="coordination">
+<h2>4. Thread coordination methods</h2>
+<div class="subsection">
+<h3>4.1 <code>sleep()</code></h3>
+<p><code>Thread.sleep(milliseconds)</code> pauses the current thread for a time, subject to timing and scheduling. It does <b>not</b> release monitors the thread already owns. It throws <code>InterruptedException</code>.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("Before");
+        Thread.sleep(200);
+        System.out.println("After");
+    }
+}</code></pre></div>
+<div class="output">Before
+After</div>
+<p>The pause duration is a minimum requested delay, not a promise of exact wake-up timing.</p>
+</div>
+<div class="subsection">
+<h3>4.2 <code>join()</code></h3>
+<p><code>join()</code> makes the current thread wait until the target thread terminates. Use it when later work depends on an earlier worker completing.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = new Thread(() -> System.out.println("Work complete"));
+        worker.start();
+        worker.join();
+        System.out.println("Main continues");
+    }
+}</code></pre></div>
+<div class="output">Work complete
+Main continues</div>
+<p>The order is guaranteed because the main thread joins the worker before printing its own message.</p>
+</div>
+<div class="subsection">
+<h3>4.3 <code>interrupt()</code> — cooperative cancellation</h3>
+<p>Interruption is a request for a thread to stop or change what it is doing. It is not a forceful kill. Blocking methods such as <code>sleep()</code>, <code>wait()</code> and <code>join()</code> typically respond by throwing <code>InterruptedException</code> and clearing the interrupt status.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = new Thread(() -> {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    System.out.println("Working");
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException e) {
+                // Restore the flag when we cannot propagate the exception.
+                Thread.currentThread().interrupt();
+            }
+            System.out.println("Worker stopped cooperatively");
+        });
+
+        worker.start();
+        Thread.sleep(250);
+        worker.interrupt();
+        worker.join();
+    }
+}</code></pre></div>
+<div class="output">Working
+Working
+Working
+Worker stopped cooperatively
+(The number of "Working" lines can vary.)</div>
+<p><b>Best practice:</b> If a method cannot rethrow <code>InterruptedException</code>, it often should restore the interrupt flag using <code>Thread.currentThread().interrupt()</code> after catching it, unless it intentionally consumes the interruption as part of its documented contract.</p>
+<div class="warning"><b>Avoid:</b> Deprecated unsafe termination methods such as <code>Thread.stop()</code>. They can leave shared data in inconsistent states.</div>
+</div>
+<div class="subsection">
+<h3>4.4 <code>yield()</code> and daemon threads</h3>
+<ul><li><code>Thread.yield()</code> is only a scheduling hint; the JVM may ignore it. It is not a synchronization mechanism.</li><li>A daemon thread does not keep the JVM alive when all remaining threads are non-daemon. Daemon status should not be relied on for essential cleanup or data saving.</li><li>Set daemon status before starting a thread. Calling <code>setDaemon()</code> after it has started is illegal.</li></ul>
+</div>
+</section>
+
+<section class="section searchable" id="synchronization">
+<h2>5. Synchronization, race conditions and visibility</h2>
+<div class="subsection">
+<h3>5.1 Race condition</h3>
+<div class="definition"><b>Race condition:</b> A program's result depends on the timing or interleaving of concurrent operations in a way the program has not safely controlled.</div>
+<p>For example, <code>count++</code> is a read-modify-write sequence: read count, add one, write the result. Two threads can read the same old value and overwrite each other's increments.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Demonstration of unsafe shared state</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    static int count = 0;
+
+    public static void main(String[] args) throws InterruptedException {
+        Runnable task = () -> {
+            for (int i = 0; i < 100_000; i++) {
+                count++; // not atomic
+            }
+        };
+
+        Thread a = new Thread(task);
+        Thread b = new Thread(task);
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+        System.out.println(count); // may be less than 200000
+    }
+}</code></pre></div>
+<div class="output">Expected with correct thread-safe counting: 200000
+Actual unsafe output: may be less than 200000; the exact value varies.</div>
+</div>
+<div class="subsection">
+<h3>5.2 The <code>synchronized</code> keyword</h3>
+<p>Intrinsic (monitor) synchronization provides mutual exclusion for code protected by the same monitor and establishes visibility ordering between monitor unlock and a later lock of that monitor.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Corrected counter</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    static class Counter {
+        private int count = 0;
+        public synchronized void increment() {
+            count++;
+        }
+        public synchronized int getCount() {
+            return count;
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        Runnable task = () -> {
+            for (int i = 0; i < 100_000; i++) counter.increment();
+        };
+
+        Thread a = new Thread(task);
+        Thread b = new Thread(task);
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+        System.out.println(counter.getCount());
+    }
+}</code></pre></div>
+<div class="output">200000</div>
+<p><b>Why it works:</b> Only one thread at a time can execute a synchronized instance method for the same object monitor. Both the increment and read method use that same monitor. <code>join()</code> ensures both worker threads finish before the final read.</p>
+<ul><li>A synchronized instance method locks the monitor of <code>this</code>.</li><li>A synchronized static method locks the monitor of the class's <code>Class</code> object.</li><li>A synchronized block locks the specified object.</li><li>Locks are reentrant: a thread holding a monitor can acquire that same monitor again.</li></ul>
+<div class="warning"><b>Common mistake:</b> Synchronizing on different lock objects does not protect the same shared state. Threads must coordinate on the same monitor for mutual exclusion.</div>
+</div>
+<div class="subsection">
+<h3>5.3 The <code>volatile</code> keyword</h3>
+<p><code>volatile</code> ensures visibility and ordering for reads/writes to a particular variable under Java's memory model. It does <b>not</b> make compound operations such as <code>count++</code> atomic.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Worker {
+    private volatile boolean running = true;
+
+    void stop() {
+        running = false;
+    }
+
+    void work() {
+        while (running) {
+            // Do a small unit of work.
+        }
+        System.out.println("Stopped");
+    }
+}</code></pre></div>
+<p>This is a simplified visibility example. For actual shutdown, prefer a well-defined cancellation strategy (often interruption, a task cancellation token, or executor lifecycle management) and ensure the work loop can respond promptly.</p>
+</div>
+<div class="subsection">
+<h3>5.4 Atomicity, visibility and ordering</h3>
+<div class="grid3">
+<div class="card"><h3>Atomicity</h3><p>An operation appears indivisible to competing threads, such as a successful atomic compare-and-set.</p></div>
+<div class="card"><h3>Visibility</h3><p>A write made by one thread becomes observable by another through a defined memory-model relationship.</p></div>
+<div class="card"><h3>Ordering</h3><p>Operations have the required ordering constraints; a happens-before relationship can prevent unsafe reordering effects.</p></div>
+</div>
+<p>These are related but distinct. A variable can be visible without a multi-step update being atomic. Correct concurrent code relies on documented happens-before mechanisms such as monitor locks, volatile accesses, thread start/join and concurrency utilities.</p>
+</div>
+</section>
+
+<section class="section searchable" id="locks">
+<h2>6. Explicit locks, atomics and safe shared data</h2>
+<div class="subsection">
+<h3>6.1 <code>ReentrantLock</code></h3>
+<p>An explicit lock gives lock and unlock operations and features such as timed or interruptible acquisition. A successful acquisition/release provides memory-synchronization effects similar to intrinsic locking. Always release a lock in <code>finally</code>.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.locks.ReentrantLock;
+
+class SafeCounter {
+    private final ReentrantLock lock = new ReentrantLock();
+    private int count;
+
+    void increment() {
+        lock.lock();
+        try {
+            count++;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    int get() {
+        lock.lock();
+        try {
+            return count;
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SafeCounter counter = new SafeCounter();
+        counter.increment();
+        System.out.println(counter.get());
+    }
+}</code></pre></div>
+<div class="output">1</div>
+</div>
+<div class="subsection">
+<h3>6.2 Atomic classes</h3>
+<p>Classes such as <code>AtomicInteger</code> provide atomic operations for individual values, commonly using compare-and-set hardware/runtime mechanisms.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.atomic.AtomicInteger;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        AtomicInteger count = new AtomicInteger();
+
+        Runnable task = () -> {
+            for (int i = 0; i < 100_000; i++) {
+                count.incrementAndGet();
+            }
+        };
+
+        Thread a = new Thread(task);
+        Thread b = new Thread(task);
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+
+        System.out.println(count.get());
+    }
+}</code></pre></div>
+<div class="output">200000</div>
+<p>Atomic classes are useful for independent counters and state transitions. They do not automatically make a sequence of multiple fields or business operations atomic.</p>
+</div>
+<div class="subsection">
+<h3>6.3 Thread confinement and immutability</h3>
+<ul><li><b>Thread confinement:</b> keep mutable data accessible to only one thread where possible.</li><li><b>Immutability:</b> objects whose observable state cannot change after construction are easier to share safely, provided construction and publication are safe.</li><li><b>Concurrent collections:</b> use classes such as <code>ConcurrentHashMap</code> when multiple threads must access a map concurrently.</li><li><b>Defensive design:</b> reduce shared mutable state before adding locks. Fewer shared writes often means fewer bugs.</li></ul>
+</div>
+</section>
+
+<section class="section searchable" id="hazards">
+<h2>7. Common concurrency hazards</h2>
+<div class="subsection">
+<h3>7.1 Deadlock</h3>
+<div class="definition"><b>Deadlock:</b> Two or more threads are permanently waiting for resources held by one another, so none can progress.</div>
+<p>A common prevention strategy is to acquire multiple locks in a consistent global order. Other options include reducing nested locks or using timed lock acquisition where appropriate.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Lock-order illustration (safe pattern)</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class TransferService {
+    void transfer(Lock first, Lock second) {
+        first.lock();
+        try {
+            second.lock();
+            try {
+                // Perform work requiring both locks.
+            } finally {
+                second.unlock();
+            }
+        } finally {
+            first.unlock();
+        }
+    }
+}
+// Callers must always choose the locks in a consistent order.</code></pre></div>
+<div class="warning"><b>Important:</b> This method illustrates correct release, but it cannot guarantee safety if callers pass locks in inconsistent orders. Establish a globally consistent ordering policy.</div>
+</div>
+<div class="subsection">
+<h3>7.2 Livelock and starvation</h3>
+<div class="grid2">
+<div class="card"><h3>Livelock</h3><p>Threads remain active and respond to each other, but repeatedly back off or change state without making useful progress.</p><p class="muted">Possible mitigation: randomized backoff, clearer ownership or a different coordination protocol.</p></div>
+<div class="card"><h3>Starvation</h3><p>A thread is repeatedly denied CPU time or a needed resource because other work keeps getting favored.</p><p class="muted">Possible mitigation: reduce lock hold times, reconsider fairness and prioritization, and inspect contention.</p></div>
+</div>
+</div>
+<div class="subsection">
+<h3>7.3 Wait-for graph idea</h3>
+<p>A deadlock can occur when the system has a cycle of waits: Thread A holds Lock 1 and waits for Lock 2, while Thread B holds Lock 2 and waits for Lock 1.</p>
+<div class="diagram">Thread A <span class="arrow">holds</span> Lock 1 <span class="arrow">waits for</span> Lock 2<br>▲ <span class="arrow"> </span> <span class="arrow"> </span> <span class="arrow">held by</span> ▼<br>Lock 2 <span class="arrow">waits for</span> Thread B <span class="arrow">holds</span> Lock 2</div>
+<div class="tip"><b>Interview tip:</b> Deadlock is lack of progress caused by cyclic resource dependency. Livelock is activity without progress. Starvation is indefinite postponement of one thread.</div>
+</div>
+</section>
+
+<section class="section searchable" id="executors">
+<h2>8. ExecutorService, Future and CompletableFuture</h2>
+<div class="subsection">
+<h3>8.1 Why use an executor?</h3>
+<p>An executor separates task submission from how tasks are executed. Thread pools reuse worker threads instead of creating a fresh platform thread for every task and can bound resource use.</p>
+<ul><li><code>Executor</code>: executes a submitted <code>Runnable</code>.</li><li><code>ExecutorService</code>: adds task submission, futures and lifecycle control.</li><li><code>ScheduledExecutorService</code>: schedules delayed and periodic tasks.</li><li><code>Future</code>: represents a result that may become available and supports cancellation/status checks.</li></ul>
+<div class="codebox"><div class="codehead"><span>JAVA • Main.java</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        ExecutorService pool = Executors.newFixedThreadPool(2);
+        try {
+            Future&lt;Integer&gt; a = pool.submit(() -> 10);
+            Future&lt;Integer&gt; b = pool.submit(() -> 32);
+            System.out.println(a.get() + b.get());
+        } finally {
+            pool.shutdown();
+        }
+    }
+}</code></pre></div>
+<div class="output">42</div>
+<p><b>Lifecycle:</b> <code>shutdown()</code> stops accepting new tasks while allowing submitted tasks to finish. <code>shutdownNow()</code> attempts interruption of active tasks and returns tasks that never started; it does not guarantee immediate termination. Applications should arrange orderly shutdown.</p>
+<div class="warning"><b>Common mistake:</b> Forgetting to shut down an executor can keep non-daemon worker threads alive and prevent a standalone program from exiting.</div>
+</div>
+<div class="subsection">
+<h3>8.2 <code>Future</code> and exception handling</h3>
+<p><code>Future.get()</code> can throw <code>InterruptedException</code> while waiting and <code>ExecutionException</code> if the task failed. A cancelled future can cause <code>CancellationException</code>.</p>
+<div class="subsection card">
+<h3>8.3 <code>CompletableFuture</code></h3>
+<p><code>CompletableFuture</code> supports composition of asynchronous stages. Prefer chaining results to blocking on each stage manually.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.CompletableFuture;
+
+public class Main {
+    public static void main(String[] args) {
+        CompletableFuture&lt;Integer&gt; result =
+            CompletableFuture.supplyAsync(() -> 21)
+                .thenApply(value -> value * 2);
+
+        System.out.println(result.join());
+    }
+}</code></pre></div>
+<div class="output">42</div>
+<p>Without an explicit executor, many async stages use the common ForkJoinPool by default. Blocking work, thread affinity, and executor capacity should be considered in production design. Exceptions can be handled with methods such as <code>exceptionally()</code>, <code>handle()</code> or <code>whenComplete()</code>.</p>
+</div>
+</div>
+</section>
+
+<section class="section searchable" id="utilities">
+<h2>9. High-value concurrency utilities</h2>
+<div class="subsection">
+<h3>9.1 <code>wait()</code>, <code>notify()</code> and <code>notifyAll()</code></h3>
+<p>These methods coordinate threads using an object's intrinsic monitor. A thread must own the object's monitor to call them. <code>wait()</code> releases that monitor while waiting and reacquires it before returning. Notifications do not release the monitor immediately.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Minimal guarded-wait pattern</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Signal {
+    private boolean ready = false;
+
+    synchronized void awaitReady() throws InterruptedException {
+        while (!ready) {
+            wait(); // releases this object's monitor while waiting
+        }
+    }
+
+    synchronized void markReady() {
+        ready = true;
+        notifyAll();
+    }
+}</code></pre></div>
+<div class="tip"><b>Why a while loop?</b> A waiting thread can wake without the condition being true, or another thread can change the state before it reacquires the monitor. Always recheck the condition while holding the lock.</div>
+<p>For many production producer-consumer tasks, prefer higher-level utilities such as <code>BlockingQueue</code> over manually coordinating with <code>wait()</code> and <code>notifyAll()</code>.</p>
+</div>
+<div class="subsection">
+<h3>9.2 <code>BlockingQueue</code> — producer/consumer</h3>
+<p>A blocking queue safely transfers elements between threads. Producers can put items in; consumers take items and wait when the queue is empty (or producers wait when a bounded queue is full).</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Main.java</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue&lt;String&gt; queue = new ArrayBlockingQueue&lt;&gt;(2);
+        queue.put("job-1");
+        queue.put("job-2");
+        System.out.println(queue.take());
+        System.out.println(queue.take());
+    }
+}</code></pre></div>
+<div class="output">job-1
+job-2</div>
+<p>This example is single-threaded to keep the output deterministic; the same queue can safely coordinate concurrent producer and consumer threads.</p>
+</div>
+<div class="subsection">
+<h3>9.3 Common synchronization aids</h3>
+<div class="tablewrap"><table><thead><tr><th>Utility</th><th>Purpose</th><th>Common use</th></tr></thead><tbody>
+<tr><td><code>CountDownLatch</code></td><td>One or more threads wait until a count reaches zero; it cannot be reset.</td><td>Wait for several services/tasks to finish initialization.</td></tr>
+<tr><td><code>CyclicBarrier</code></td><td>A fixed group of threads meet at a reusable barrier.</td><td>Simulation rounds where workers must all finish a phase.</td></tr>
+<tr><td><code>Semaphore</code></td><td>Controls access using a number of permits.</td><td>Limit concurrent access to a constrained resource.</td></tr>
+<tr><td><code>Phaser</code></td><td>Coordinates parties across one or more reusable phases.</td><td>Complex multi-stage parallel work.</td></tr>
+<tr><td><code>ConcurrentHashMap</code></td><td>A scalable concurrent map with defined thread-safe operations.</td><td>Shared caches and lookup tables.</td></tr>
+<tr><td><code>CopyOnWriteArrayList</code></td><td>Writes copy the backing array; iteration is snapshot-like.</td><td>Many reads and relatively rare writes.</td></tr>
+<tr><td><code>ThreadLocal</code></td><td>Provides a separate value per thread.</td><td>Thread-specific context; carefully manage pooled thread values.</td></tr>
+</tbody></table></div>
+</div>
+</section>
+
+<section class="section searchable" id="virtual">
+<h2>10. Virtual threads and modern Java</h2>
+<div class="definition"><b>Virtual threads:</b> Lightweight threads managed by the Java runtime rather than each requiring a dedicated operating-system thread for their whole lifetime. Finalized in Java 21, they are designed to make thread-per-task styles practical for many I/O-heavy workloads.</div>
+<ul><li>Virtual threads help scale high-concurrency tasks that spend much of their time waiting.</li><li>They are not intended to make CPU-bound computation faster than the available processors.</li><li>They work with the familiar <code>Thread</code> API and are commonly created through <code>Thread.startVirtualThread(task)</code> or a virtual-thread-per-task executor.</li><li>Do not pool virtual threads just because platform threads are pooled. Usually create one virtual thread per task and limit downstream resources separately.</li><li>Blocking calls in supported JDK APIs can suspend a virtual thread while freeing its carrier thread; not every native or synchronized interaction behaves identically across JDK releases.</li></ul>
+<div class="codebox"><div class="codehead"><span>JAVA 21+ • Main.java</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = Thread.startVirtualThread(
+            () -> System.out.println("Hello from a virtual thread")
+        );
+        worker.join();
+    }
+}</code></pre></div>
+<div class="output">Hello from a virtual thread</div>
+<p>The <code>join()</code> call guarantees the message is printed before main finishes. Without joining or another coordination method, the main thread could finish before the message is observed.</p>
+<div class="tablewrap"><table><thead><tr><th>Platform thread</th><th>Virtual thread</th></tr></thead><tbody>
+<tr><td>Typically maps to an OS thread for execution.</td><td>Scheduled by the JVM and runs on carrier platform threads.</td></tr>
+<tr><td>More resource-intensive per thread at very high counts.</td><td>Designed to support very large numbers of mostly waiting tasks.</td></tr>
+<tr><td>Useful for CPU work and traditional worker pools.</td><td>Especially useful for blocking I/O tasks with thread-per-request code.</td></tr>
+<tr><td>A fixed pool can cap simultaneous worker count.</td><td>Use separate limits (semaphore, connection pool, rate limits) for scarce downstream resources.</td></tr>
+</tbody></table></div>
+<div class="warning"><b>Interview caution:</b> Virtual threads are lightweight, not “faster CPU threads.” Validate details against the target JDK version if discussing pinning, native calls, or synchronized blocking behavior.</div>
+</section>
+
+<section class="section searchable" id="comparisons">
+<h2>11. Comparison tables for interviews</h2>
+<div class="subsection"><h3>Runnable vs Callable</h3>
+<div class="tablewrap"><table><thead><tr><th>Runnable</th><th>Callable&lt;V&gt;</th></tr></thead><tbody>
+<tr><td>Method: <code>run()</code></td><td>Method: <code>call()</code></td></tr>
+<tr><td>Does not return a result.</td><td>Returns a result of type V.</td></tr>
+<tr><td>Cannot declare arbitrary checked exceptions from <code>run()</code>.</td><td>May throw checked exceptions from <code>call()</code>.</td></tr>
+<tr><td>Can be passed to a <code>Thread</code> or submitted to an executor.</td><td>Usually submitted to an executor to obtain a <code>Future</code>.</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3><code>synchronized</code> vs <code>volatile</code></h3>
+<div class="tablewrap"><table><thead><tr><th>Aspect</th><th><code>synchronized</code></th><th><code>volatile</code></th></tr></thead><tbody>
+<tr><td>Primary guarantee</td><td>Mutual exclusion plus visibility/order for operations protected by the same monitor.</td><td>Visibility/order for reads and writes to that variable.</td></tr>
+<tr><td>Compound updates</td><td>Can make a critical section atomic with respect to other users of the same lock.</td><td>Does not make <code>count++</code> atomic.</td></tr>
+<tr><td>Blocking</td><td>Threads can block waiting for the monitor.</td><td>Does not acquire a monitor lock.</td></tr>
+<tr><td>Typical use</td><td>Protect a compound invariant or critical section.</td><td>Publish a simple state flag where volatile semantics suffice.</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3><code>sleep()</code> vs <code>wait()</code></h3>
+<div class="tablewrap"><table><thead><tr><th><code>sleep()</code></th><th><code>wait()</code></th></tr></thead><tbody>
+<tr><td>Static method on <code>Thread</code>.</td><td>Method on <code>Object</code>.</td></tr>
+<tr><td>Pauses the current thread for a time.</td><td>Waits for notification/timeout while coordinated by a monitor.</td></tr>
+<tr><td>Does not release held monitors.</td><td>Releases the monitor of the object on which <code>wait()</code> is called.</td></tr>
+<tr><td>Can be called without owning a monitor.</td><td>Must own the target object's monitor or throws <code>IllegalMonitorStateException</code>.</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3>Deadlock vs livelock vs starvation</h3>
+<div class="tablewrap"><table><thead><tr><th>Issue</th><th>What happens</th><th>Progress?</th></tr></thead><tbody>
+<tr><td>Deadlock</td><td>Threads wait on a cyclic dependency.</td><td>Blocked participants make no progress.</td></tr>
+<tr><td>Livelock</td><td>Threads actively respond but repeatedly prevent each other from advancing.</td><td>Activity continues, useful progress does not.</td></tr>
+<tr><td>Starvation</td><td>A thread repeatedly fails to get CPU time or a needed resource.</td><td>Other work may progress while one thread is postponed.</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3>Thread vs ExecutorService</h3>
+<div class="tablewrap"><table><thead><tr><th>Manual Thread</th><th>ExecutorService</th></tr></thead><tbody>
+<tr><td>Represents a specific thread of execution.</td><td>Manages task execution and worker lifecycle.</td></tr>
+<tr><td>Useful for learning or special thread-level control.</td><td>Usually preferred for managing many submitted tasks.</td></tr>
+<tr><td>Must manage each thread's lifecycle directly.</td><td>Offers shutdown methods, task submission and futures.</td></tr>
+<tr><td>Creating one platform thread for every tiny task can be costly.</td><td>Pools can reuse worker threads and control concurrency; virtual-thread executors are an alternative for many I/O-bound tasks.</td></tr>
+</tbody></table></div></div>
+</section>
+
+<section class="section searchable" id="realworld">
+<h2>12. Three practical real-world examples</h2>
+<div class="example">
+<h3>Example 1 — Web server handling independent requests</h3>
+<p><b>Scenario:</b> Many requests arrive at a server and each request may wait on storage or a remote service.</p>
+<p><b>Problem:</b> Doing all requests sequentially can limit throughput and responsiveness.</p>
+<p><b>Approach:</b> Submit independent tasks to an executor. Choose pool size and queueing policy based on CPU, latency, and downstream limits—not an arbitrary large thread count.</p>
+<div class="codebox"><div class="codehead"><span>JAVA • Simplified demonstration</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ExecutorService pool = Executors.newFixedThreadPool(3);
+        try {
+            for (int i = 1; i <= 5; i++) {
+                final int requestId = i;
+                pool.submit(() -> {
+                    System.out.println("Handling request " + requestId
+                        + " on " + Thread.currentThread().getName());
+                });
+            }
+        } finally {
+            pool.shutdown();
+        }
+    }
+}</code></pre></div>
+<div class="output">One possible output:
+Handling request 1 on pool-1-thread-1
+Handling request 2 on pool-1-thread-2
+Handling request 3 on pool-1-thread-3
+Handling request 4 on pool-1-thread-1
+Handling request 5 on pool-1-thread-2</div>
+<p>Worker assignment and order are not guaranteed. <code>shutdown()</code> allows submitted tasks to finish. <b>Why useful:</b> A bounded worker pool can reuse workers and control the number of simultaneous platform-thread tasks. For high concurrency with blocking I/O, a Java 21 virtual-thread-per-task executor may be suitable, with separate limits for database connections and other scarce resources.</p>
+</div>
+<div class="example">
+<h3>Example 2 — Background file processing with a result</h3>
+<p><b>Scenario:</b> An application counts records in a file or computes a report while the main workflow continues.</p>
+<p><b>Problem:</b> The caller needs both background execution and a result or an error.</p>
+<p><b>Approach:</b> Use <code>Callable</code> and <code>Future</code>. This runnable example uses a list as mock records to avoid external file setup.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.List;
+import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ExecutorService pool = Executors.newSingleThreadExecutor();
+        try {
+            Callable&lt;Long&gt; reportTask = () ->
+                List.of("row-1", "row-2", "row-3").stream().count();
+
+            Future&lt;Long&gt; report = pool.submit(reportTask);
+            System.out.println("Rows: " + report.get());
+        } finally {
+            pool.shutdown();
+        }
+    }
+}</code></pre></div>
+<div class="output">Rows: 3</div>
+<p><b>Why useful:</b> The task returns a typed result; exceptions from the task are surfaced by <code>get()</code> wrapped in <code>ExecutionException</code>. Real file processing should also consider I/O errors, encoding, file size, cancellation and resource closing.</p>
+</div>
+<div class="example">
+<h3>Example 3 — E-commerce inventory updates</h3>
+<p><b>Scenario:</b> Two checkout requests attempt to reserve units of the same product at nearly the same time.</p>
+<p><b>Problem:</b> Unsynchronized read-modify-write logic can oversell inventory.</p>
+<p><b>Approach:</b> Protect the invariant with a synchronized method in this small model. A production service may instead use database transactions, conditional updates, row locking or optimistic concurrency control across multiple application instances.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Inventory {
+    private int stock;
+    Inventory(int stock) { this.stock = stock; }
+
+    public synchronized boolean reserveOne() {
+        if (stock <= 0) return false;
+        stock--;
+        return true;
+    }
+
+    public synchronized int remaining() { return stock; }
+}
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Inventory inventory = new Inventory(1);
+        Runnable checkout = () ->
+            System.out.println(Thread.currentThread().getName()
+                + " reserved: " + inventory.reserveOne());
+
+        Thread a = new Thread(checkout, "Checkout-A");
+        Thread b = new Thread(checkout, "Checkout-B");
+        a.start(); b.start();
+        a.join(); b.join();
+        System.out.println("Remaining: " + inventory.remaining());
+    }
+}</code></pre></div>
+<div class="output">One possible output:
+Checkout-A reserved: true
+Checkout-B reserved: false
+Remaining: 0
+(The two checkout lines may appear in reverse order.)</div>
+<p><b>Why useful:</b> The synchronized critical section makes checking and decrementing stock one indivisible operation with respect to callers using the same object. It does not coordinate separate application servers or database records by itself.</p>
+</div>
+</section>
+
+<section class="section searchable" id="interview">
+<h2>13. Interview questions and answers</h2>
+<p class="intro">Each card includes a direct answer, five or more learning points, an interview tip and a follow-up with its answer. Open only the cards you need or use the Expand all button.</p>
+<div class="controls"><button class="btn" id="openAll">Open all answers</button><button class="btn" id="closeAll">Close all answers</button><span class="muted" id="questionCount"></span></div>
+<div id="qaList">
+<details class="qa"><summary class="qhead"><span class="qnum">01</span><div class="qtitle">What is multithreading in Java?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Fundamentals</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Multithreading lets a program have multiple execution threads making progress concurrently.</li><li>Threads in the same process share heap objects and many process resources.</li><li>Each thread has its own call stack and execution state.</li><li>It can improve responsiveness, I/O overlap and throughput.</li><li>It introduces hazards such as races, deadlocks and visibility bugs if shared state is not managed safely.</li></ol><div class="tip"><b>Interview tip:</b> Explain both the benefit and the synchronization cost; multithreading is not automatically faster.</div><div class="follow"><strong>Follow-up:</strong> Does multithreading always mean parallel execution?<br><b>Answer:</b> No. Threads may take turns on one core or run simultaneously on multiple cores.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">02</span><div class="qtitle">What is the difference between a process and a thread?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Fundamentals</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A process is an executing program instance with its own address space in typical operating systems.</li><li>A thread is an execution path within a process.</li><li>Threads in one process normally share heap data and open resources.</li><li>Each thread has its own stack and execution state.</li><li>Shared memory makes thread communication convenient but requires synchronization to avoid races.</li></ol><div class="tip"><b>Interview tip:</b> Avoid claiming that threads have separate heaps; ordinary Java platform threads in the same JVM share the heap.</div><div class="follow"><strong>Follow-up:</strong> Can two Java threads access the same object?<br><b>Answer:</b> Yes, if references to that object are available to both threads. Safe access depends on the object's design and synchronization.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">03</span><div class="qtitle">How can you create a thread in Java?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Thread creation</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Extend <code>Thread</code> and override <code>run()</code> for a simple demonstration.</li><li>Implement <code>Runnable</code> to separate task logic from the thread.</li><li>Use a lambda when the task is short and fits the functional interface.</li><li>Submit <code>Runnable</code> or <code>Callable</code> tasks to an <code>ExecutorService</code> for managed execution.</li><li>On Java 21+, virtual threads can be created for lightweight thread-per-task execution where appropriate.</li></ol><div class="tip"><b>Interview tip:</b> In regular application code, prefer expressing the task separately and letting an executor manage execution.</div><div class="follow"><strong>Follow-up:</strong> What method actually begins a new thread?<br><b>Answer:</b> Call <code>start()</code> on a Thread object, not <code>run()</code> directly.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">04</span><div class="qtitle">What is the difference between start() and run()?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Thread creation</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>start()</code> initiates a new thread of execution.</li><li>The JVM invokes the target thread's <code>run()</code> in that new execution.</li><li>Calling <code>run()</code> directly is an ordinary method call on the current thread.</li><li>A Thread instance can be started at most once.</li><li>Calling <code>start()</code> again on an already-started thread throws <code>IllegalThreadStateException</code>.</li></ol><div class="tip"><b>Interview tip:</b> State which thread prints the output when a puzzle mixes <code>run()</code> and <code>start()</code>.</div><div class="follow"><strong>Follow-up:</strong> Can you call the same Runnable's run method multiple times?<br><b>Answer:</b> Yes, as an ordinary method, but each direct call runs on the caller's thread and doesn't create a thread.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">05</span><div class="qtitle">What are the states in Java Thread.State?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Lifecycle</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>NEW</code>: created but not started.</li><li><code>RUNNABLE</code>: executing or ready to run from Java's point of view.</li><li><code>BLOCKED</code>: waiting to acquire an intrinsic monitor lock.</li><li><code>WAITING</code> and <code>TIMED_WAITING</code>: waiting indefinitely or for a limited time.</li><li><code>TERMINATED</code>: execution has completed.</li></ol><div class="tip"><b>Interview tip:</b> Java does not expose a separate “RUNNING” state in <code>Thread.State</code>.</div><div class="follow"><strong>Follow-up:</strong> Does <code>sleep()</code> normally lead to which state?<br><b>Answer:</b> <code>TIMED_WAITING</code> while the thread sleeps, subject to timing and observation.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">06</span><div class="qtitle">What is the difference between Runnable and Callable?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Tasks & results</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>Runnable</code> defines a <code>run()</code> method that returns no value.</li><li><code>Callable&lt;V&gt;</code> defines <code>call()</code> and returns a value of type V.</li><li><code>Callable.call()</code> can throw checked exceptions.</li><li>Submitting a Callable to an executor typically returns a <code>Future&lt;V&gt;</code>.</li><li>Runnable can be given directly to a Thread or submitted to an executor.</li></ol><div class="tip"><b>Interview tip:</b> Use Callable when the task needs a result or checked-exception propagation.</div><div class="follow"><strong>Follow-up:</strong> Does a Future necessarily contain a completed result immediately?<br><b>Answer:</b> No. <code>get()</code> waits until completion unless the result is already available or cancellation/failure occurs.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">07</span><div class="qtitle">What is a race condition? Why is count++ not thread-safe?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Shared state</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A race condition occurs when the result depends on uncontrolled thread timing.</li><li><code>count++</code> conceptually reads the current value, increments it and writes the result back.</li><li>Two threads can read the same old value before either writes.</li><li>One update can overwrite the other, causing a lost increment.</li><li>Use synchronization, a suitable lock, or an atomic counter to protect the update.</li></ol><div class="tip"><b>Interview tip:</b> <code>volatile int count</code> still does not make <code>count++</code> atomic.</div><div class="follow"><strong>Follow-up:</strong> Which library class provides an atomic integer counter?<br><b>Answer:</b> <code>java.util.concurrent.atomic.AtomicInteger</code>.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">08</span><div class="qtitle">What is synchronization in Java?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Synchronization</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Synchronization coordinates concurrent access to shared state.</li><li>The <code>synchronized</code> keyword uses an object's intrinsic monitor.</li><li>Only one thread at a time can own a particular monitor.</li><li>Unlocking a monitor happens-before a later locking of the same monitor.</li><li>All participating code must use a consistent lock protocol; unrelated locks do not protect the same invariant.</li></ol><div class="tip"><b>Interview tip:</b> Name both guarantees: mutual exclusion and visibility/order under the Java memory model.</div><div class="follow"><strong>Follow-up:</strong> Does synchronizing a method lock every object of that class?<br><b>Answer:</b> An instance synchronized method locks that instance's monitor. A static synchronized method locks the class's Class object.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">09</span><div class="qtitle">What is the difference between synchronized and volatile?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Memory model</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>synchronized</code> provides monitor-based mutual exclusion and memory visibility guarantees.</li><li><code>volatile</code> provides visibility/order guarantees for reads and writes to that variable.</li><li>Volatile does not provide mutual exclusion.</li><li>Volatile does not make compound updates such as increment atomic.</li><li>Use synchronized or atomic operations when a compound invariant must be updated safely.</li></ol><div class="tip"><b>Interview tip:</b> A volatile flag can be suitable for simple state publication; a shared counter usually requires more.</div><div class="follow"><strong>Follow-up:</strong> Is a volatile boolean automatically enough for every cancellation problem?<br><b>Answer:</b> Not always; use a suitable cancellation protocol, especially when a task may block and needs interruption to wake it.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">10</span><div class="qtitle">Does sleep() release a lock? How is it different from wait()?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Coordination</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>Thread.sleep()</code> pauses the current thread for a requested interval.</li><li>Sleep does not release monitors the thread holds.</li><li><code>Object.wait()</code> is called on a monitor object while the caller owns that object's monitor.</li><li>Wait releases that monitor while waiting and reacquires it before returning.</li><li>Wait must typically be used in a loop that checks a condition because wakeups do not guarantee the condition is true.</li></ol><div class="tip"><b>Interview tip:</b> Compare owner requirement and monitor release—not just duration.</div><div class="follow"><strong>Follow-up:</strong> Can <code>wait()</code> be called without synchronizing on its object?<br><b>Answer:</b> No. It throws <code>IllegalMonitorStateException</code> if the calling thread does not own that object's monitor.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">11</span><div class="qtitle">What do join() and interrupt() do?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Coordination</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>join()</code> waits for the target thread to terminate.</li><li>It is useful when the caller needs the worker's work to finish before continuing.</li><li><code>interrupt()</code> requests cooperative cancellation or attention; it does not forcibly kill a thread.</li><li>Interruptible blocking methods commonly throw <code>InterruptedException</code> and clear the status.</li><li>Code that catches and cannot propagate the exception often restores the interrupt status before returning.</li></ol><div class="tip"><b>Interview tip:</b> Never describe interruption as a guaranteed immediate termination.</div><div class="follow"><strong>Follow-up:</strong> What does <code>Thread.currentThread().isInterrupted()</code> check?<br><b>Answer:</b> It checks the current thread's interrupt status without clearing it.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">12</span><div class="qtitle">What is a deadlock? How can it be prevented?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Hazards</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Deadlock is a situation where threads wait on a cycle of resource dependencies.</li><li>A thread may hold one lock while waiting to acquire another.</li><li>Consistent global lock ordering can break circular-wait cycles.</li><li>Reducing nested locking, using try-lock timeouts, and simplifying shared ownership can help.</li><li>Thread dumps and monitoring tools can help diagnose lock cycles in a running JVM.</li></ol><div class="tip"><b>Interview tip:</b> Do not confuse deadlock with a slow thread or starvation; deadlock involves a cyclic wait dependency.</div><div class="follow"><strong>Follow-up:</strong> Does adding <code>sleep()</code> between acquiring two locks solve deadlock?<br><b>Answer:</b> No. It may change timing but does not establish a safe lock order or guarantee progress.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">13</span><div class="qtitle">What is the difference between deadlock, livelock and starvation?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Hazards</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Deadlock: involved threads are blocked waiting for each other in a cycle.</li><li>Livelock: threads continue executing but their reactions prevent useful progress.</li><li>Starvation: a thread waits indefinitely or for an unacceptably long time for CPU or a resource.</li><li>Lock ordering is a common deadlock prevention method.</li><li>Backoff/coordination redesign can help livelock; resource fairness and short critical sections can help starvation.</li></ol><div class="tip"><b>Interview tip:</b> Deadlock looks stuck, livelock looks busy but ineffective, starvation leaves one participant consistently underserved.</div><div class="follow"><strong>Follow-up:</strong> Can a fair lock eliminate all starvation in an entire application?<br><b>Answer:</b> No. Fairness for one lock does not guarantee fairness across CPU scheduling, other locks, I/O or the entire system.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">14</span><div class="qtitle">Why use ExecutorService instead of creating a Thread for every task?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Executors</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>An executor separates task submission from the details of execution.</li><li>Thread pools reuse workers and can reduce repeated thread-creation overhead.</li><li>Configured pools can bound concurrency and offer queueing policies.</li><li>Executor services offer lifecycle management, results and cancellation through futures.</li><li>Pool type and size should match the workload; unbounded queues or uncontrolled pools can still cause resource problems.</li></ol><div class="tip"><b>Interview tip:</b> Explain pool lifecycle as well as creation—shut it down cleanly.</div><div class="follow"><strong>Follow-up:</strong> What is the difference between shutdown() and shutdownNow()?<br><b>Answer:</b> <code>shutdown()</code> rejects new tasks but lets submitted tasks finish; <code>shutdownNow()</code> attempts to interrupt active tasks and returns tasks that did not start.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">15</span><div class="qtitle">What are Future and CompletableFuture?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Asynchronous results</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>Future</code> represents a result that may be available later and supports status, cancellation and blocking retrieval.</li><li><code>Future.get()</code> waits for completion if needed.</li><li>Task failures are reported through <code>ExecutionException</code> when retrieved with get.</li><li><code>CompletableFuture</code> supports dependent stages and composition of asynchronous workflows.</li><li>Async operations need deliberate executor, exception and cancellation handling.</li></ol><div class="tip"><b>Interview tip:</b> <code>thenApply</code> transforms a value; <code>thenCompose</code> is useful to flatten a stage that itself returns another CompletionStage.</div><div class="follow"><strong>Follow-up:</strong> Does <code>join()</code> have the same exception signature as <code>get()</code>?<br><b>Answer:</b> No. <code>join()</code> typically throws unchecked <code>CompletionException</code> on exceptional completion, while <code>get()</code> uses checked exceptions such as ExecutionException and InterruptedException.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">16</span><div class="qtitle">What is ThreadLocal, and what should you watch out for?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Thread-local state</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>ThreadLocal</code> gives each thread its own independently stored value.</li><li>It can keep thread-specific context without passing it through every method.</li><li>Values are not automatically shared between threads.</li><li>In thread pools, a worker thread may be reused for many unrelated tasks.</li><li>Call <code>remove()</code> when appropriate, especially for request-specific values, to avoid stale context or retention issues.</li></ol><div class="tip"><b>Interview tip:</b> ThreadLocal avoids some shared mutable-state races but does not automatically solve context propagation to async tasks.</div><div class="follow"><strong>Follow-up:</strong> Does a child thread automatically see the parent's ordinary ThreadLocal value?<br><b>Answer:</b> No. <code>InheritableThreadLocal</code> has different inheritance semantics, and neither should be adopted without considering lifecycle and executor reuse.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">17</span><div class="qtitle">What is a daemon thread?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Thread types</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A daemon thread is a background thread that does not by itself keep the JVM alive.</li><li>The JVM may exit when only daemon threads remain.</li><li>Set daemon status before starting the thread.</li><li>Daemon status is not a substitute for explicit cancellation or cleanup.</li><li>Essential work should not depend on a daemon thread getting time to finish after application shutdown starts.</li></ol><div class="tip"><b>Interview tip:</b> A daemon is about JVM liveness, not thread priority or CPU speed.</div><div class="follow"><strong>Follow-up:</strong> Can you call setDaemon(true) after start()?<br><b>Answer:</b> No; attempting to change daemon status after the thread has started throws <code>IllegalThreadStateException</code>.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">18</span><div class="qtitle">What is a CountDownLatch? How does it differ from CyclicBarrier?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Coordination utilities</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A <code>CountDownLatch</code> lets threads await a count reaching zero.</li><li>Other threads decrement the count with <code>countDown()</code>.</li><li>A latch is one-shot and cannot be reset.</li><li>A <code>CyclicBarrier</code> makes a fixed number of parties wait for one another at a barrier.</li><li>A CyclicBarrier can be reused for another phase after the barrier trips.</li></ol><div class="tip"><b>Interview tip:</b> Latch often represents “wait for these events”; barrier often represents “participants meet at this phase.”</div><div class="follow"><strong>Follow-up:</strong> Would CountDownLatch be appropriate to await three startup tasks?<br><b>Answer:</b> Yes. Initialize the count to three, count down once per successful/finished task as defined by the design, and await zero.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">19</span><div class="qtitle">What is the producer-consumer problem, and how does BlockingQueue help?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Concurrent utilities</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Producers create work items while consumers process them.</li><li>The system needs safe transfer and coordination when the queue is empty or full.</li><li><code>BlockingQueue</code> implementations are designed for concurrent use.</li><li><code>put()</code> can wait when a bounded queue is full; <code>take()</code> waits when it is empty.</li><li>A bounded queue can provide backpressure and prevent unlimited accumulation of pending work.</li></ol><div class="tip"><b>Interview tip:</b> Mention shutdown signalling or poison-pill design so consumers know when no more work will arrive.</div><div class="follow"><strong>Follow-up:</strong> Why might an unbounded queue be risky in a server?<br><b>Answer:</b> If producers outpace consumers, queued tasks and memory use can grow without bound, causing latency and eventually resource exhaustion.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">20</span><div class="qtitle">What is the Java Memory Model and happens-before?<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Memory model</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>The Java Memory Model defines how reads and writes can be observed across threads and what reorderings are permitted.</li><li>A happens-before relation guarantees the visibility and ordering required by the memory model.</li><li>An unlock of a monitor happens-before a subsequent lock of that same monitor.</li><li>A write to a volatile variable happens-before a subsequent read of that variable that observes it.</li><li>Thread start/join and higher-level concurrency utilities also establish defined synchronization relationships.</li></ol><div class="tip"><b>Interview tip:</b> Without a happens-before relationship or other valid synchronization, do not assume one thread will immediately observe another thread's writes.</div><div class="follow"><strong>Follow-up:</strong> Does volatile make every operation involving that variable atomic?<br><b>Answer:</b> No. It provides visibility and ordering for accesses to the variable, not atomicity for compound sequences.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">21</span><div class="qtitle">What is the difference between AtomicInteger and synchronized?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Atomic operations</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>AtomicInteger</code> provides atomic operations on one integer value.</li><li>It is useful for counters and simple lock-free state transitions.</li><li><code>synchronized</code> protects a critical section under an intrinsic monitor.</li><li>Synchronization can protect relationships between multiple fields or operations as one unit.</li><li>Choose based on the invariant; atomic classes do not make a whole multi-step workflow transactional.</li></ol><div class="tip"><b>Interview tip:</b> Avoid saying “atomics are always faster”; contention and workload determine performance.</div><div class="follow"><strong>Follow-up:</strong> Would AtomicInteger alone safely update two counters that must always sum to 100?<br><b>Answer:</b> Not as one atomic invariant. Protect the combined update with a lock or redesign the state as one atomically updated value.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">22</span><div class="qtitle">What are virtual threads and when should they be used?<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Java 21+</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Virtual threads are lightweight threads scheduled by the JVM over platform-thread carriers.</li><li>They became a permanent feature in Java 21.</li><li>They are well suited to many concurrent tasks that spend substantial time blocked on I/O.</li><li>They do not increase the number of CPU cores, so they do not inherently speed up CPU-bound work.</li><li>Applications still need backpressure and limits for databases, remote services, memory and other scarce resources.</li></ol><div class="tip"><b>Interview tip:</b> Virtual threads simplify thread-per-task code; they do not eliminate race conditions or the need for thread-safe shared state.</div><div class="follow"><strong>Follow-up:</strong> Should you put virtual threads in a fixed-size pool to reuse them?<br><b>Answer:</b> Generally no; the usual design is a virtual thread per task, while separate semaphores or resource pools limit access to scarce dependencies.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">23</span><div class="qtitle">Predict the output: does sleep() guarantee ordering between two threads?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Output prediction</span></div></summary><div class="answer"><h4>Question code</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>Thread a = new Thread(() -> {
+    try { Thread.sleep(100); } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+    }
+    System.out.println("A");
+});
+Thread b = new Thread(() -> System.out.println("B"));
+a.start();
+b.start();</code></pre></div><h4>Answer</h4><ol><li>Thread A requests a 100 ms pause before printing.</li><li>Thread B can print while A is sleeping.</li><li>On ordinary scheduling, B is likely to print first, but output ordering should not be treated as a hard guarantee from sleep.</li><li>Sleep is not a synchronization primitive.</li><li>Use a join, latch, barrier or other defined coordination when order matters.</li></ol><div class="output">Likely:
+B
+A</div><div class="follow"><strong>Follow-up:</strong> How can you guarantee A prints before B?<br><b>Answer:</b> Make B wait for A's completion (for example, call <code>a.join()</code> in the thread that is responsible for printing B), or use another suitable coordination primitive.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">24</span><div class="qtitle">Why should wait() usually be called inside a while loop?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Monitor coordination</span></div></summary><div class="answer"><h4>Answer</h4><ol><li>A thread must first own the target object's monitor.</li><li><code>wait()</code> releases that monitor while waiting.</li><li>Wakeups may be spurious, and notification itself doesn't guarantee the condition remains true.</li><li>Another thread may consume or alter the condition before the waiting thread reacquires the monitor.</li><li>A while loop rechecks the guarded condition under the lock before proceeding.</li></ol><div class="tip"><b>Interview tip:</b> The correct pattern is “while condition is false, wait,” not “if condition is false, wait.”</div><div class="follow"><strong>Follow-up:</strong> Does notifyAll() release the monitor immediately?<br><b>Answer:</b> No. The notified threads compete to reacquire the monitor after the notifying thread releases it.</div></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">25</span><div class="qtitle">How do you safely shut down background tasks?<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Lifecycle & cancellation</span></div></summary><div class="answer"><h4>Answer</h4><ol><li>Stop accepting new tasks using an executor's <code>shutdown()</code> when appropriate.</li><li>Give active tasks a cooperative way to finish or cancel.</li><li>Use interruption-aware blocking code and restore interrupt status when it is caught but not propagated.</li><li>Use bounded waiting and a documented fallback policy; <code>shutdownNow()</code> only attempts cancellation through interruption.</li><li>Close resources and preserve application invariants; do not rely on daemon threads to finish important work.</li></ol><div class="tip"><b>Interview tip:</b> Cancellation is a protocol. Interruption only works well when tasks are designed to respond to it.</div><div class="follow"><strong>Follow-up:</strong> Does Future.cancel(true) guarantee a task stops immediately?<br><b>Answer:</b> No. It requests interruption of the executing thread when applicable; task code must respond cooperatively.</div></div></details>
+</div>
+</section>
+
+<section class="section searchable" id="practice">
+<h2>14. Practical coding and debugging lab</h2>
+<p class="intro">Each problem is followed immediately by a model solution and expected output. Compile complete examples in a file named <code>Main.java</code> with a compatible JDK.</p>
+<details class="qa"><summary class="qhead"><span class="qnum">P1</span><div class="qtitle">Beginner — Create a thread that prints numbers from 1 to 5.<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Coding</span></div></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(i);
+            }
+        });
+        worker.start();
+        worker.join();
+    }
+}</code></pre></div><div class="output">1
+2
+3
+4
+5</div><p><b>Explanation:</b> The lambda is the task; start launches a thread; join ensures main waits for it. One worker prints sequentially, so these lines remain ordered. Work is O(n) for n numbers and uses O(1) additional algorithmic space, excluding thread resources.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P2</span><div class="qtitle">Beginner — Run two tasks and wait for both to finish before printing Done.<div class="meta"><span class="badge easy">Beginner</span><span class="badge">join()</span></div></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread a = new Thread(() -> System.out.println("Task A"));
+        Thread b = new Thread(() -> System.out.println("Task B"));
+        a.start();
+        b.start();
+        a.join();
+        b.join();
+        System.out.println("Done");
+    }
+}</code></pre></div><div class="output">Task A
+Task B
+Done
+(Task A and Task B may appear in either order.)</div><p><b>Explanation:</b> Each join waits for its target. Both task lines must occur before Done, although their relative order is not guaranteed.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P3</span><div class="qtitle">Beginner — Fix the bug: the programmer calls run() but expects parallel execution.<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Debugging</span></div></summary><div class="answer"><h4>Incorrect</h4><div class="codebox"><div class="codehead"><span>JAVA</span></div><pre><code>Thread t = new Thread(() -> System.out.println("Background work"));
+t.run();</code></pre></div><h4>Correction</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>Thread t = new Thread(() -> System.out.println("Background work"));
+t.start();</code></pre></div><div class="output">Background work</div><p><b>Explanation:</b> The output is the same text, but with direct run() it executes on the calling thread; start() initiates a distinct thread of execution.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P4</span><div class="qtitle">Intermediate — Count 100,000 increments from two workers without lost updates.<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Synchronization</span></div></summary><div class="answer"><h4>Solution using AtomicInteger</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.atomic.AtomicInteger;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        AtomicInteger count = new AtomicInteger();
+        Runnable task = () -> {
+            for (int i = 0; i < 100_000; i++) count.incrementAndGet();
+        };
+        Thread a = new Thread(task);
+        Thread b = new Thread(task);
+        a.start(); b.start();
+        a.join(); b.join();
+        System.out.println(count.get());
+    }
+}</code></pre></div><div class="output">200000</div><p><b>Explanation:</b> Each increment is atomic. Join ensures both tasks finish before reading. Work is O(n) total for n increments per task; the shared counter uses O(1) extra memory, excluding threads. Under high contention, throughput should be measured rather than assumed.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P5</span><div class="qtitle">Intermediate — Use Callable to calculate the sum 1 through 100 and display the result.<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Callable / Future</span></div></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future&lt;Integer&gt; sum = executor.submit(() -> {
+                int total = 0;
+                for (int i = 1; i <= 100; i++) total += i;
+                return total;
+            });
+            System.out.println(sum.get());
+        } finally {
+            executor.shutdown();
+        }
+    }
+}</code></pre></div><div class="output">5050</div><p><b>Explanation:</b> The Callable computes a result and Future represents it. <code>get()</code> returns the value or reports task failure. The sum algorithm is O(n) time and O(1) additional space.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P6</span><div class="qtitle">Intermediate — Build a bounded producer-consumer queue with one producer and one consumer.<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">BlockingQueue</span></div></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue&lt;Integer&gt; queue = new ArrayBlockingQueue&lt;&gt;(2);
+        Thread producer = new Thread(() -> {
+            try {
+                for (int i = 1; i <= 3; i++) queue.put(i);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        Thread consumer = new Thread(() -> {
+            try {
+                for (int i = 1; i <= 3; i++) {
+                    System.out.println("Consumed " + queue.take());
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        producer.start();
+        consumer.start();
+        producer.join();
+        consumer.join();
+    }
+}</code></pre></div><div class="output">Consumed 1
+Consumed 2
+Consumed 3</div><p><b>Explanation:</b> The bounded queue safely handles concurrent transfer and applies backpressure when full. This fixed example knows the exact item count; real applications need a shutdown signalling strategy. Queue order is FIFO.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P7</span><div class="qtitle">Advanced — Limit concurrent access to a resource to at most two tasks.<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Semaphore</span></div></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA • Pattern</span><button class="btn copy-btn">Copy code</button></div><pre><code>import java.util.concurrent.Semaphore;
+
+class LimitedService {
+    private final Semaphore permits = new Semaphore(2);
+
+    void perform() throws InterruptedException {
+        permits.acquire();
+        try {
+            // Use the limited resource.
+            System.out.println("Using resource");
+        } finally {
+            permits.release();
+        }
+    }
+}</code></pre></div><div class="output">Each successful call prints:
+Using resource</div><p><b>Explanation:</b> At most two callers hold permits at once. Release belongs in finally so exceptions do not leak permits. This is a reusable pattern rather than a full runnable program; caller threads determine how many times it prints.</p></div></details>
+
+<details class="qa"><summary class="qhead"><span class="qnum">P8</span><div class="qtitle">Advanced — Predict the output of volatile plus increment, and explain the issue.<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Tricky concept</span></div></summary><div class="answer"><h4>Question code</h4><div class="codebox"><div class="codehead"><span>JAVA</span></div><pre><code>static volatile int count = 0;
+// Two threads each execute this 100,000 times:
+count++;</code></pre></div><h4>Answer</h4><ol><li>The final result is not guaranteed to be 200000.</li><li>Volatile reads and writes have visibility/order guarantees.</li><li>The increment is still a read-modify-write sequence.</li><li>Concurrent threads can overwrite one another's updates.</li><li>Use <code>AtomicInteger.incrementAndGet()</code> or a synchronized critical section.</li></ol><div class="output">No single exact output is guaranteed.
+200000 is the intended total; the actual count may be lower.</div><p><b>Explanation:</b> This code fragment assumes it is placed in a valid class and two properly started worker tasks. The final value depends on the interleaving, so a particular lower number cannot be promised.</p></div></details>
+</section>
+
+<section class="section searchable" id="revision">
+<h2>15. Interview revision sheet</h2>
+<div class="subsection">
+<h3>Definitions to memorize</h3>
+<div class="grid2">
+<div class="card"><b style="color:var(--blue)">Thread</b><p>A separate path of execution inside a process.</p></div>
+<div class="card"><b style="color:var(--blue)">Race condition</b><p>A result depends on uncontrolled timing between concurrent operations.</p></div>
+<div class="card"><b style="color:var(--blue)">Synchronization</b><p>Coordination that protects shared state and establishes memory ordering.</p></div>
+<div class="card"><b style="color:var(--blue)">Deadlock</b><p>A cyclic resource wait that prevents involved threads from progressing.</p></div>
+<div class="card"><b style="color:var(--blue)">ExecutorService</b><p>A task execution and lifecycle management abstraction.</p></div>
+<div class="card"><b style="color:var(--blue)">Happens-before</b><p>A memory-model relation guaranteeing specified visibility and ordering.</p></div>
+</div>
+</div>
+<div class="subsection">
+<h3>Revision checklist</h3>
+<p class="muted">Tick each point after explaining it without reading the notes.</p>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Explain process, thread, concurrency and parallelism clearly.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Know all six Java Thread.State values.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Explain start() vs run(), Runnable vs Callable and Future.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Understand race conditions and why count++ is not atomic.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Compare synchronized and volatile; explain happens-before.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Explain sleep(), wait(), join() and interruption.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Know deadlock, livelock, starvation and prevention strategies.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Use ExecutorService and shut it down properly.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Describe BlockingQueue, CountDownLatch, Semaphore and atomic classes.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Know when virtual threads help and when they do not.</span></label>
+</div>
+<div class="warning"><b>Common interview mistakes:</b> assuming thread output always follows start order; using sleep to coordinate; calling run() and expecting a new thread; treating volatile as a lock; forgetting executor shutdown; swallowing InterruptedException without a deliberate policy; and assuming virtual threads make CPU-heavy work faster.</div>
+</section>
+
+<section class="section searchable" id="mock">
+<h2>16. Mini mock interview</h2>
+<p class="intro">Try speaking for 30–60 seconds before reading the model answer.</p>
+<div class="qa"><div class="qhead"><span class="qnum">M1</span><div class="qtitle">You see a counter returning inconsistent values under load. How do you debug it?</div></div><div class="answer"><ol><li>Identify all readers and writers of the shared counter.</li><li>Check whether compound operations such as increment are protected.</li><li>Reproduce with a stress test, but do not assume one test proves thread safety.</li><li>Use a monitor lock, atomic variable or suitable concurrent data structure based on the invariant.</li><li>Join or otherwise coordinate test workers before asserting the final value.</li></ol></div></div>
+<div class="qa"><div class="qhead"><span class="qnum">M2</span><div class="qtitle">When would you choose synchronized over volatile?</div></div><div class="answer"><ol><li>Choose synchronized when multiple operations must be protected as one critical section.</li><li>It uses a monitor to provide mutual exclusion.</li><li>It also provides defined visibility and ordering at lock boundaries.</li><li>Volatile is appropriate for certain single-variable visibility/order requirements.</li><li>Do not use volatile alone for check-then-act logic or compound increments.</li></ol></div></div>
+<div class="qa"><div class="qhead"><span class="qnum">M3</span><div class="qtitle">How would you process thousands of I/O-heavy tasks?</div></div><div class="answer"><ol><li>Clarify the JDK version, I/O libraries, concurrency target and downstream capacity.</li><li>Consider a Java 21+ virtual-thread-per-task executor for blocking I/O-heavy work.</li><li>Set explicit limits for database connections, API rate limits and memory-intensive stages.</li><li>Use timeouts, cancellation, error handling and observability.</li><li>Benchmark the actual workload; virtual threads do not increase CPU core count.</li></ol></div></div>
+<div class="qa"><div class="qhead"><span class="qnum">M4</span><div class="qtitle">Explain how you would avoid deadlocks in a money-transfer service.</div></div><div class="answer"><ol><li>Define a consistent order for acquiring account locks, such as sorting by stable account ID.</li><li>Keep critical sections small and avoid unrelated calls while holding locks.</li><li>Use transactions and database concurrency controls if account state lives in a database.</li><li>Consider timeouts or retry policies designed around idempotency.</li><li>Test competing transfers and inspect thread dumps/transaction waits under contention.</li></ol></div></div>
+</section>
+
+<div class="card" style="margin-top:34px">
+<h3>Interactive quick quiz</h3>
+<p id="quizQuestion" style="font-weight:750">Which method creates a new thread of execution?</p>
+<div id="quizOptions"><button class="quiz-option" data-correct="false">run()</button><button class="quiz-option" data-correct="true">start()</button><button class="quiz-option" data-correct="false">sleep()</button><button class="quiz-option" data-correct="false">yield()</button></div>
+<div id="quizFeedback" class="muted" aria-live="polite"></div>
+<button class="btn" id="nextQuiz">Next question</button>
+</div>
+
+<div class="footer"><b>Running the examples:</b> Use JDK 17+ unless a section explicitly says Java 21+. Save complete examples with a public <code>Main</code> class as <code>Main.java</code>, then run <code>javac Main.java</code> and <code>java Main</code>. Some code blocks are patterns or fragments and are labelled accordingly. Concurrent output order and unsafe race-condition results may vary by run; only claims backed by synchronization or coordination should be treated as guaranteed.</div>
+</main>
+</div>
+<script>
+const allQuestions=()=>[...document.querySelectorAll('#qaList details.qa, #practice details.qa')];
+let expanded=false;
+const expandBtn=document.getElementById('expandBtn');
+function setAll(open){allQuestions().forEach(q=>q.open=open);expanded=open;expandBtn.textContent=open?'Collapse all':'Expand all'}
+expandBtn.addEventListener('click',()=>setAll(!expanded));
+document.getElementById('openAll').addEventListener('click',()=>setAll(true));
+document.getElementById('closeAll').addEventListener('click',()=>setAll(false));
+document.getElementById('questionCount').textContent=`${document.querySelectorAll('#qaList details.qa').length} interview questions`;
+document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click',async()=>{
+ const code=btn.closest('.codebox').querySelector('pre').innerText;
+ try{await navigator.clipboard.writeText(code);btn.textContent='Copied!'}
+ catch(e){const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();btn.textContent='Copied!'}
+ setTimeout(()=>btn.textContent='Copy code',1300);
+}));
+document.getElementById('mobileNav').addEventListener('change',e=>{if(e.target.value)document.querySelector(e.target.value)?.scrollIntoView({behavior:'smooth'})});
+const searchInput=document.getElementById('searchInput');
+searchInput.addEventListener('input',()=>{
+ const term=searchInput.value.trim().toLowerCase();
+ const candidates=document.querySelectorAll('main .searchable, main .qa, main .example, main .card, main .subsection');
+ candidates.forEach(el=>{
+   if(!term){el.classList.remove('hidden-search');return}
+   el.classList.toggle('hidden-search',!el.innerText.toLowerCase().includes(term));
+ });
+});
+const checks=[...document.querySelectorAll('.revision-check')];
+function updateProgress(){const done=checks.filter(c=>c.checked).length;document.getElementById('progressText').textContent=`${done} / ${checks.length} complete`;document.getElementById('progressFill').style.width=`${done/checks.length*100}%`}
+checks.forEach(c=>c.addEventListener('change',updateProgress));
+const quizzes=[
+ {q:'Which method starts a new thread of execution?',o:['run()','start()','sleep()','yield()'],a:1,e:'start() initiates the thread; the thread then invokes run().'},
+ {q:'Which keyword alone does not make count++ atomic?',o:['volatile','synchronized','AtomicInteger API','A lock around the operation'],a:0,e:'volatile gives visibility/order guarantees, but count++ is a compound operation.'},
+ {q:'Which method waits for another thread to terminate?',o:['sleep()','yield()','join()','notify()'],a:2,e:'join() waits for the target thread to finish.'},
+ {q:'Which utility is designed for safe producer-consumer transfer?',o:['StringBuilder','BlockingQueue','ThreadLocal','System.out'],a:1,e:'BlockingQueue coordinates access and can block on empty/full conditions.'},
+ {q:'Virtual threads are especially useful for which kind of workload?',o:['Making single-thread CPU math faster','Many concurrent tasks waiting on I/O','Eliminating every data race','Replacing every lock'],a:1,e:'They help scale many mostly-blocking tasks, but shared state still needs safe coordination.'}
+];
+let qi=0;
+function renderQuiz(){
+ const q=quizzes[qi];document.getElementById('quizQuestion').textContent=`${qi+1}/${quizzes.length}. ${q.q}`;
+ const box=document.getElementById('quizOptions');box.innerHTML='';
+ q.o.forEach((option,i)=>{const b=document.createElement('button');b.className='quiz-option';b.textContent=option;b.addEventListener('click',()=>{
+   box.querySelectorAll('button').forEach(x=>x.disabled=true);
+   const feedback=document.getElementById('quizFeedback');feedback.textContent=(i===q.a?'Correct! ':'Not quite. ')+q.e;feedback.style.color=i===q.a?'var(--green)':'var(--amber)';
+ });box.appendChild(b)});
+ document.getElementById('quizFeedback').textContent='';document.getElementById('quizFeedback').style.color='var(--muted)';
+}
+document.getElementById('nextQuiz').addEventListener('click',()=>{qi=(qi+1)%quizzes.length;renderQuiz()});
+renderQuiz();
+const sections=[...document.querySelectorAll('main section[id]')],navlinks=[...document.querySelectorAll('.navlink')];
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)navlinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id))}),{rootMargin:'-18% 0px -72% 0px'});sections.forEach(s=>observer.observe(s))}
+</script>
+</body>
+</html>

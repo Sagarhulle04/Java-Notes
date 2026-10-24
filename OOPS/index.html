@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Beginner-friendly OOP in Java notes, runnable examples, interview questions and practice exercises.">
+<title>OOP in Java — Learning Notes</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121a2b;--panel2:#172238;--border:#29364e;--text:#e8eef8;--muted:#aab7cc;--blue:#70b7ff;--purple:#c5a3ff;--green:#7ee0b0;--amber:#ffd080;--red:#ff9292;--shadow:0 14px 40px #0003}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;background:radial-gradient(ellipse at top left,#14213b 0,transparent 42%),var(--bg);color:var(--text);font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}a{color:var(--blue)}button,input{font:inherit}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:12px clamp(16px,4vw,48px);background:#0b1020eF;border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}.brand{font-weight:800;letter-spacing:.02em}.brand span{color:var(--blue)}.top-actions{display:flex;align-items:center;gap:10px}.search{width:min(34vw,280px);background:var(--panel);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:10px}.btn{border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 12px;cursor:pointer}.btn:hover{border-color:var(--blue)}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1500px;margin:auto}.sidebar{position:sticky;top:66px;align-self:start;height:calc(100vh - 66px);overflow:auto;padding:24px 16px;border-right:1px solid var(--border)}.sidebar h3{margin:0 0 12px;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}.navlink{display:block;padding:8px 11px;margin:3px 0;border-radius:8px;color:var(--muted);text-decoration:none;font-size:.92rem}.navlink:hover,.navlink.active{background:#1b2b45;color:var(--blue)}main{min-width:0;padding:clamp(20px,4vw,52px);max-width:1100px}.hero{padding:clamp(24px,5vw,48px);border:1px solid #304566;border-radius:24px;background:linear-gradient(135deg,#172844,#151a31 65%,#211b3b);box-shadow:var(--shadow)}.eyebrow{color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.13em;font-size:.78rem}.hero h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.12;margin:.5rem 0 1rem}.hero p{max-width:760px;color:#c4d0e3;font-size:1.08rem}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.chip{font-size:.82rem;padding:5px 10px;border-radius:999px;border:1px solid #3c4d6a;color:#d7e7ff;background:#14223a}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 36px}.stat,.card,.qa,.example,.practice,.callout{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px}.stat strong{display:block;font-size:1.5rem;color:var(--blue)}.stat span{color:var(--muted);font-size:.88rem}.section{margin-top:44px}.section h2{font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 10px;line-height:1.25}.section-intro{color:var(--muted);margin-top:0}.subsection{margin-top:28px}.subsection h3{margin-bottom:8px;font-size:1.25rem}.definition{border-left:3px solid var(--blue);background:#122139;padding:14px 16px;border-radius:0 10px 10px 0;margin:14px 0}.tip{border-left:3px solid var(--purple);background:#211c36;padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}.warning{border-left:3px solid var(--amber);background:#2a2419;padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}.success{border-left:3px solid var(--green);background:#142b27;padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card h3,.example h3,.practice h3{margin-top:0}.muted{color:var(--muted)}ul,ol{padding-left:1.35rem}li{margin:.3rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#b7dcff}.codebox{overflow:hidden;border:1px solid #2a354b;border-radius:13px;background:#080d17;margin:14px 0}.codehead{display:flex;justify-content:space-between;align-items:center;padding:8px 13px;background:#121a28;color:#b8c7dc;font-size:.78rem;letter-spacing:.07em}.codebox pre{margin:0;padding:17px;overflow:auto;font: .9rem/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce8f8;white-space:pre}.output{border:1px solid #234a3e;background:#07130f;border-radius:12px;padding:14px 16px;margin:12px 0;font: .9rem/1.7 ui-monospace,Consolas,monospace;white-space:pre-wrap;color:#8de6b7}.output:before{content:"EXPECTED OUTPUT";display:block;font:700 .7rem system-ui;color:var(--green);letter-spacing:.1em;margin-bottom:7px}.tablewrap{overflow:auto;border:1px solid var(--border);border-radius:12px;margin:14px 0}table{border-collapse:collapse;width:100%;min-width:520px}th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top}th{background:#1b2940;color:#d9e9ff}tr:last-child td{border-bottom:0}.qa{margin:14px 0;padding:0;overflow:hidden}.qhead{padding:16px 18px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;list-style:none}.qhead::-webkit-details-marker{display:none}.qnum{flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;background:#20324d;color:var(--blue);border-radius:9px;font-weight:800}.qtitle{flex:1;font-weight:700}.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}.badge{font-size:.72rem;padding:2px 8px;border-radius:999px;background:#222f45;color:#c7d7ee}.badge.easy{color:var(--green)}.badge.medium{color:var(--amber)}.badge.advanced{color:var(--purple)}.chevron{color:var(--muted);transition:transform .2s}.qa[open] .chevron{transform:rotate(180deg)}.answer{border-top:1px solid var(--border);padding:18px 20px}.answer h4{color:var(--green);margin:0 0 8px}.follow{padding:12px 14px;border-radius:10px;background:#192238;margin-top:12px}.follow strong{color:var(--purple)}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.progressbar{height:7px;background:#202c40;border-radius:9px;overflow:hidden;margin-top:10px}.progressbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .2s}.checkrow{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #263247}.checkrow input{margin-top:7px;accent-color:#70b7ff}.footer{border-top:1px solid var(--border);margin-top:48px;padding-top:22px;color:var(--muted);font-size:.88rem}.hidden-by-search{display:none!important}.mobile-nav{display:none}.quiz-option{display:block;width:100%;text-align:left;padding:10px 12px;margin:7px 0;background:#111b2c;color:var(--text);border:1px solid var(--border);border-radius:9px;cursor:pointer}.quiz-option:hover{border-color:var(--blue)}.quiz-feedback{min-height:28px;color:var(--muted);margin-top:8px}.pilltitle{font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);font-weight:700}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.mobile-nav{display:block;margin:14px 0}.mobile-nav select{width:100%;padding:10px;border-radius:10px;background:var(--panel);border:1px solid var(--border);color:var(--text)}main{padding:20px}.topbar{padding:10px 14px}.search{width:min(42vw,230px)}}
+@media(max-width:620px){.brand{font-size:.92rem}.top-actions{gap:6px}.top-actions .btn{padding:7px 9px;font-size:.82rem}.search{width:38vw;min-width:90px}.stats,.grid2,.grid3{grid-template-columns:1fr}.hero{border-radius:17px}.hero h1{font-size:2.35rem}.stat{padding:14px}.qhead{padding:13px}.answer{padding:14px}.section{margin-top:34px}}
+@media print{.topbar,.sidebar,.mobile-nav,.controls,.search,.btn{display:none!important}.layout{display:block}main{max-width:none;padding:0}.hero,.card,.qa,.example,.practice{break-inside:avoid;background:white;color:#111;border-color:#bbb}.muted,.section-intro{color:#444}.answer{display:block}.qa:not([open]) .answer{display:block}body{background:white;color:#111}.codebox,.output{background:#f4f4f4;color:#111}.codehead{background:#ddd;color:#111}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Learn<span>Forge</span> <span style="color:var(--muted);font-weight:500">/ Java</span></div>
+  <div class="top-actions">
+    <input id="searchInput" class="search" type="search" placeholder="Search notes…" aria-label="Search notes">
+    <button class="btn" id="expandBtn">Expand all</button>
+    <button class="btn" onclick="window.print()">Print</button>
+  </div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <h3>On this page</h3>
+  <a class="navlink active" href="#overview">Overview</a>
+  <a class="navlink" href="#foundations">1. Foundations</a>
+  <a class="navlink" href="#pillars">2. Four pillars</a>
+  <a class="navlink" href="#relationships">3. Relationships & keywords</a>
+  <a class="navlink" href="#comparisons">4. Comparison tables</a>
+  <a class="navlink" href="#examples">5. Real-world examples</a>
+  <a class="navlink" href="#interview">6. Interview Q&A</a>
+  <a class="navlink" href="#practice">7. Practice lab</a>
+  <a class="navlink" href="#revision">8. Quick revision</a>
+  <a class="navlink" href="#mock">9. Mock interview</a>
+  <div class="card" style="margin-top:24px;padding:14px">
+    <div class="pilltitle">Revision progress</div>
+    <strong id="progressText">0 / 8 complete</strong>
+    <div class="progressbar"><span id="progressFill"></span></div>
+    <p class="muted" style="font-size:.8rem;margin-bottom:0">Tick sections as you revise.</p>
+  </div>
+</aside>
+<main>
+<div class="mobile-nav"><select id="mobileNav" aria-label="Jump to section"><option value="#overview">Jump to a section…</option><option value="#foundations">Foundations</option><option value="#pillars">Four pillars</option><option value="#relationships">Relationships & keywords</option><option value="#comparisons">Comparison tables</option><option value="#examples">Real-world examples</option><option value="#interview">Interview Q&A</option><option value="#practice">Practice lab</option><option value="#revision">Quick revision</option><option value="#mock">Mock interview</option></select></div>
+<section class="hero searchable" id="overview">
+  <div class="eyebrow">Java • Core concepts • Placement prep</div>
+  <h1>Object-Oriented<br>Programming in Java</h1>
+  <p>A beginner-friendly guide to classes, objects, encapsulation, inheritance, polymorphism, abstraction, and the questions interviewers use to test your understanding.</p>
+  <div class="chips"><span class="chip">Beginner → Interview-ready</span><span class="chip">Runnable Java examples</span><span class="chip">Q&A cards</span><span class="chip">Responsive dark theme</span></div>
+</section>
+<div class="stats">
+  <div class="stat"><strong>4</strong><span>Core OOP pillars</span></div>
+  <div class="stat"><strong>20+</strong><span>Interview questions</span></div>
+  <div class="stat"><strong>3</strong><span>Real-world examples</span></div>
+</div>
+<div class="callout definition searchable"><strong>Definition:</strong> Object-Oriented Programming (OOP) is a programming approach that organizes software around <b>objects</b> containing state (data) and behavior (methods). Java is class-based and supports OOP through classes, objects, inheritance, polymorphism, encapsulation, and abstraction.</div>
+<div class="callout tip searchable"><strong>Learning path:</strong> Understand class and object first, then learn the four pillars, then constructors and Java keywords, and finally practice output-based questions.</div>
+
+<section class="section searchable" id="foundations">
+  <h2>1. Foundations: classes and objects</h2><p class="section-intro">The building blocks behind every object-oriented Java program.</p>
+  <div class="subsection">
+    <h3>Class</h3>
+    <div class="definition"><b>Definition:</b> A class is a blueprint that declares the fields and methods its objects can have.</div>
+    <ul><li><b>Why needed:</b> It groups related data and behavior into one reusable design.</li><li><b>How it works:</b> A class declaration defines members; creating an object allocates an instance with its own instance-field values.</li><li><b>Rule:</b> A top-level public class must be saved in a file with the same name, such as <code>Student.java</code>.</li></ul>
+  </div>
+  <div class="subsection">
+    <h3>Object</h3>
+    <div class="definition"><b>Definition:</b> An object is a runtime instance of a class. It has identity, state, and behavior.</div>
+    <ul><li><b>State:</b> Current field values, such as a student's name.</li><li><b>Behavior:</b> Operations provided by methods, such as <code>study()</code>.</li><li><b>Identity:</b> The particular object, even if another object has equal field values.</li></ul>
+  </div>
+  <div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Student {
+    String name;
+    int age;
+
+    void introduce() {
+        System.out.println("I am " + name + ", age " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        s1.name = "Asha";
+        s1.age = 21;
+        s1.introduce();
+    }
+}</code></pre></div>
+  <div class="output">I am Asha, age 21</div>
+  <p><b>Execution:</b> <code>new Student()</code> creates an instance; <code>s1</code> stores its reference; assignments set field values; <code>introduce()</code> reads those values and prints the message.</p>
+  <div class="warning"><b>Common mistake:</b> A reference variable is not the object itself. It refers to an object. Multiple references can refer to the same object.</div>
+  <div class="subsection">
+    <h3>Fields, methods, and <code>new</code></h3>
+    <ul><li><b>Field:</b> A variable declared in a class to hold object or class state.</li><li><b>Method:</b> A named block of code that defines behavior and can accept parameters and return a value.</li><li><b><code>new</code>:</b> Commonly creates an object and invokes its constructor; it returns a reference to the created object.</li><li><b>Default field values:</b> Instance fields get defaults such as <code>0</code>, <code>false</code>, and <code>null</code>. Local variables do not get automatic default values and must be definitely assigned before use.</li></ul>
+  </div>
+</section>
+
+<section class="section searchable" id="pillars">
+<h2>2. The four pillars of OOP</h2><p class="section-intro">Learn the purpose of each pillar and how Java expresses it.</p>
+<div class="subsection card">
+  <h3>2.1 Encapsulation</h3>
+  <div class="definition"><b>Definition:</b> Encapsulation bundles data and the methods that operate on it, while controlling access to an object's internal state.</div>
+  <p><b>Why it matters:</b> It protects invariants, prevents uncontrolled changes, and lets a class change its implementation without changing its public API.</p>
+  <div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class BankAccount {
+    private double balance;
+
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+        balance += amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount();
+        account.deposit(500);
+        System.out.println(account.getBalance());
+    }
+}</code></pre></div>
+  <div class="output">500.0</div>
+  <p><b>How it works:</b> <code>balance</code> is private, so callers cannot assign it directly. They must use the public method, which validates the amount before updating the value.</p>
+  <div class="tip"><b>Interview tip:</b> Encapsulation is not simply “using getters and setters.” It is about controlled access and preserving valid state. A setter that accepts every value may weaken encapsulation.</div>
+</div>
+<div class="subsection card">
+  <h3>2.2 Inheritance</h3>
+  <div class="definition"><b>Definition:</b> Inheritance lets a class (subclass/child) extend another class (superclass/parent), inheriting accessible members and optionally adding or overriding behavior.</div>
+  <p><b>Why it matters:</b> It models an “is-a” relationship and supports reuse and runtime polymorphism.</p>
+  <div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.sound();
+    }
+}</code></pre></div>
+  <div class="output">Dog barks</div>
+  <p><b>Rules:</b> Java classes have one direct superclass (single class inheritance), but a class can implement multiple interfaces. Constructors are not inherited. Private members are not directly accessible in subclasses.</p>
+  <div class="warning"><b>Common mistake:</b> Do not use inheritance just to avoid copying a few lines. If the relationship is “has-a” rather than “is-a,” composition is often a better choice.</div>
+</div>
+<div class="subsection card">
+  <h3>2.3 Polymorphism</h3>
+  <div class="definition"><b>Definition:</b> Polymorphism means “many forms”: the same operation or reference type can lead to different behavior depending on the overload selected or the runtime object's class.</div>
+  <div class="grid2">
+    <div><b>Compile-time: overloading</b><p class="muted">Same method name, different parameter lists. The compiler chooses the applicable overload.</p></div>
+    <div><b>Runtime: overriding</b><p class="muted">A subclass supplies an implementation of an inherited instance method. The runtime class determines which override runs.</p></div>
+  </div>
+  <div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Printer {
+    void print(int value) {
+        System.out.println("Integer: " + value);
+    }
+    void print(String value) {
+        System.out.println("Text: " + value);
+    }
+}
+class Shape {
+    double area() { return 0; }
+}
+class Circle extends Shape {
+    @Override
+    double area() { return Math.PI * 2 * 2; }
+}
+public class Main {
+    public static void main(String[] args) {
+        new Printer().print(7);
+        Shape shape = new Circle();
+        System.out.printf("Area: %.2f%n", shape.area());
+    }
+}</code></pre></div>
+  <div class="output">Integer: 7
+Area: 12.57</div>
+  <p><b>Important:</b> Overloading is resolved using compile-time types and argument signatures. Overridden instance methods use dynamic dispatch. Static methods are hidden rather than overridden.</p>
+</div>
+<div class="subsection card">
+  <h3>2.4 Abstraction</h3>
+  <div class="definition"><b>Definition:</b> Abstraction exposes essential operations while hiding unnecessary implementation details.</div>
+  <p>Java commonly achieves abstraction through abstract classes and interfaces. A caller can use an agreed contract without knowing how each implementation performs the work.</p>
+  <div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>interface PaymentMethod {
+    void pay(double amount);
+}
+class CardPayment implements PaymentMethod {
+    public void pay(double amount) {
+        System.out.println("Paid ₹" + amount + " by card");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        PaymentMethod payment = new CardPayment();
+        payment.pay(250);
+    }
+}</code></pre></div>
+  <div class="output">Paid ₹250.0 by card</div>
+  <p><b>Why useful:</b> A checkout service can depend on <code>PaymentMethod</code> rather than a specific payment provider. New implementations can be introduced with less change to client code.</p>
+  <div class="tip"><b>Remember:</b> Abstraction focuses on what an object offers; encapsulation focuses on protecting and controlling how its state is accessed.</div>
+</div>
+</section>
+
+<section class="section searchable" id="relationships">
+<h2>3. Constructors, keywords, and object relationships</h2>
+<div class="subsection">
+<h3>Constructors</h3>
+<p>A constructor initializes a newly created object. It has the same name as the class and no return type—not even <code>void</code>.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Employee {
+    String name;
+    Employee() { this("Unknown"); } // delegates to another constructor
+    Employee(String name) { this.name = name; }
+}
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(new Employee().name);
+        System.out.println(new Employee("Mira").name);
+    }
+}</code></pre></div>
+<div class="output">Unknown
+Mira</div>
+<ul><li>If no constructor is declared, the compiler may provide a default no-argument constructor.</li><li>Once you declare any constructor, Java does not automatically add that default constructor.</li><li><code>this(...)</code> invokes another constructor in the same class; <code>super(...)</code> invokes a superclass constructor. In conventional Java source, either constructor invocation must be the first statement; newer Java releases have carefully scoped flexible constructor-body rules, so follow the language version in use.</li><li>Constructors are not inherited and cannot be overridden.</li></ul>
+</div>
+<div class="subsection">
+<h3>Important keywords</h3>
+<div class="tablewrap"><table><thead><tr><th>Keyword</th><th>Purpose</th><th>Example / rule</th></tr></thead><tbody>
+<tr><td><code>this</code></td><td>Reference to the current object</td><td><code>this.name = name;</code></td></tr>
+<tr><td><code>super</code></td><td>Access superclass members or call its constructor</td><td><code>super.toString()</code></td></tr>
+<tr><td><code>static</code></td><td>Member belongs to the class, not each instance</td><td><code>Math.max(2, 5)</code></td></tr>
+<tr><td><code>final</code></td><td>Restricts reassignment, overriding, or inheritance depending on use</td><td>Final reference cannot be reassigned; referenced object may still be mutable.</td></tr>
+<tr><td><code>abstract</code></td><td>Declares an incomplete class or method</td><td>Cannot instantiate an abstract class directly.</td></tr>
+<tr><td><code>private</code></td><td>Restricts access to the declaring top-level class's body</td><td>Common for fields that should be guarded.</td></tr>
+<tr><td><code>protected</code></td><td>Package access plus subclass access subject to Java's access rules</td><td>Not simply “public to every subclass everywhere.”</td></tr>
+<tr><td><code>instanceof</code></td><td>Tests runtime type compatibility</td><td><code>obj instanceof String</code></td></tr>
+</tbody></table></div>
+</div>
+<div class="subsection">
+<h3>Association, aggregation, and composition</h3>
+<div class="grid3">
+<div class="card"><h3>Association</h3><p>A general relationship between independent objects.</p><p class="muted">Example: Doctor treats Patient.</p></div>
+<div class="card"><h3>Aggregation</h3><p>A whole-part relationship where the part can exist independently of the whole.</p><p class="muted">Example: Team has Players.</p></div>
+<div class="card"><h3>Composition</h3><p>A strong ownership relationship where the part's lifecycle is typically controlled by the whole.</p><p class="muted">Example: Order has OrderLines.</p></div>
+</div>
+<div class="tip"><b>Design tip:</b> Prefer composition when it gives a clearer, more flexible model than inheritance. These relationship labels describe design intent; Java does not enforce aggregation or composition with special keywords.</div>
+</div>
+</section>
+
+<section class="section searchable" id="comparisons">
+<h2>4. Frequently confused concepts</h2>
+<div class="subsection"><h3>Abstract class vs interface</h3>
+<div class="tablewrap"><table><thead><tr><th>Aspect</th><th>Abstract class</th><th>Interface</th></tr></thead><tbody>
+<tr><td>Main purpose</td><td>Share a base type and common implementation/state</td><td>Define a contract/capability across types</td></tr>
+<tr><td>Declaration</td><td><code>abstract class A {}</code></td><td><code>interface A {}</code></td></tr>
+<tr><td>Inheritance</td><td>A class extends only one class</td><td>A class may implement multiple interfaces</td></tr>
+<tr><td>Fields</td><td>Can have instance fields and constructors</td><td>Fields are implicitly <code>public static final</code> constants</td></tr>
+<tr><td>Methods</td><td>Abstract and concrete methods; ordinary access modifiers</td><td>Abstract methods plus permitted default, static, and private methods</td></tr>
+<tr><td>Constructor</td><td>Can declare constructors</td><td>Cannot declare constructors</td></tr>
+<tr><td>Use when</td><td>Related classes need shared state or base behavior</td><td>Different classes should promise the same capability</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3>Overloading vs overriding</h3>
+<div class="tablewrap"><table><thead><tr><th>Aspect</th><th>Overloading</th><th>Overriding</th></tr></thead><tbody>
+<tr><td>Parameters</td><td>Must differ in number, type, or order</td><td>Must match the inherited method signature, subject to Java's overriding rules</td></tr>
+<tr><td>Inheritance needed?</td><td>No</td><td>Yes, an inherited instance method is involved</td></tr>
+<tr><td>Resolution</td><td>Compile time</td><td>Runtime dynamic dispatch for instance methods</td></tr>
+<tr><td>Return type</td><td>Cannot distinguish overloads by return type alone</td><td>Same return type or a permitted covariant reference return</td></tr>
+<tr><td>Static methods</td><td>Can be overloaded</td><td>Hidden, not overridden</td></tr>
+<tr><td>Annotation</td><td>None required</td><td><code>@Override</code> is recommended and lets the compiler catch mistakes</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3>Access modifiers</h3>
+<div class="tablewrap"><table><thead><tr><th>Modifier</th><th>Same class</th><th>Same package</th><th>Subclass outside package</th><th>Unrelated outside package</th></tr></thead><tbody>
+<tr><td><code>private</code></td><td>Yes</td><td>No</td><td>No direct access</td><td>No</td></tr>
+<tr><td>package-private (no modifier)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td><code>protected</code></td><td>Yes</td><td>Yes</td><td>Yes, subject to subclass access rules</td><td>No</td></tr>
+<tr><td><code>public</code></td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes, if the enclosing type is accessible</td></tr>
+</tbody></table></div></div>
+<div class="subsection"><h3>Class vs object</h3>
+<div class="tablewrap"><table><thead><tr><th>Class</th><th>Object</th></tr></thead><tbody><tr><td>Blueprint/type definition</td><td>Runtime instance</td></tr><tr><td>Declares fields and methods</td><td>Has identity and instance state</td></tr><tr><td>Declared with <code>class</code></td><td>Often created using <code>new</code></td></tr><tr><td>Example: <code>Car</code></td><td>Example: <code>new Car()</code></td></tr></tbody></table></div></div>
+</section>
+
+<section class="section searchable" id="examples">
+<h2>5. Real-world examples</h2><p class="section-intro">How OOP concepts map to applications you may build.</p>
+<div class="example">
+<h3>Example 1 — Banking application (encapsulation)</h3>
+<p><b>Scenario:</b> A bank account must never be changed by arbitrary code to an invalid balance.</p>
+<p><b>Solution:</b> Keep the balance private and expose validated operations. This small example models deposits; production banking requires currency-safe arithmetic, authentication, concurrency controls, audit logs, and transactional persistence.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Account {
+    private int balanceInPaise;
+    public void deposit(int paise) {
+        if (paise <= 0) throw new IllegalArgumentException();
+        balanceInPaise += paise;
+    }
+    public int balanceInPaise() { return balanceInPaise; }
+}
+public class Main {
+    public static void main(String[] args) {
+        Account a = new Account();
+        a.deposit(12500);
+        System.out.println(a.balanceInPaise());
+    }
+}</code></pre></div>
+<div class="output">12500</div>
+<p><b>Why useful:</b> The account owns the rule for valid deposits, so callers cannot bypass it through a public field.</p>
+</div>
+<div class="example">
+<h3>Example 2 — E-commerce checkout (abstraction + polymorphism)</h3>
+<p><b>Scenario:</b> Checkout should support multiple payment methods without containing provider-specific logic everywhere.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>interface Payment {
+    void pay(int rupees);
+}
+class UpiPayment implements Payment {
+    public void pay(int rupees) {
+        System.out.println("UPI payment: ₹" + rupees);
+    }
+}
+class CardPayment implements Payment {
+    public void pay(int rupees) {
+        System.out.println("Card payment: ₹" + rupees);
+    }
+}
+public class Main {
+    static void checkout(Payment method) { method.pay(499); }
+    public static void main(String[] args) {
+        checkout(new UpiPayment());
+        checkout(new CardPayment());
+    }
+}</code></pre></div>
+<div class="output">UPI payment: ₹499
+Card payment: ₹499</div>
+<p><b>Why useful:</b> The checkout method depends on the <code>Payment</code> contract and can work with different implementations. Real payment code must use a secure, trusted payment provider and handle failures safely.</p>
+</div>
+<div class="example">
+<h3>Example 3 — Employee management (inheritance + overriding)</h3>
+<p><b>Scenario:</b> Different employee types calculate bonuses differently, but the application handles them through one base type.</p>
+<div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Employee {
+    double bonus() { return 0; }
+}
+class Manager extends Employee {
+    @Override double bonus() { return 15000; }
+}
+class Developer extends Employee {
+    @Override double bonus() { return 10000; }
+}
+public class Main {
+    public static void main(String[] args) {
+        Employee[] staff = {new Manager(), new Developer()};
+        for (Employee e : staff) {
+            System.out.println(e.bonus());
+        }
+    }
+}</code></pre></div>
+<div class="output">15000.0
+10000.0</div>
+<p><b>Why useful:</b> The loop does not need to check each employee's concrete class. Runtime polymorphism chooses the appropriate override. Real bonus rules would use validated data and explicit business policies.</p>
+</div>
+</section>
+
+<section class="section searchable" id="interview">
+<h2>6. Interview questions and answers</h2><p class="section-intro">Select a question to reveal or hide its answer. Each answer includes key points and a follow-up.</p>
+<div class="controls"><button class="btn" id="openAll">Open all answers</button><button class="btn" id="closeAll">Close all answers</button><span class="muted" id="questionCount" style="align-self:center"></span></div>
+<div id="qaList">
+<details class="qa"><summary class="qhead"><span class="qnum">01</span><div class="qtitle">What is OOP in Java?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Fundamentals</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>OOP stands for Object-Oriented Programming.</li><li>It organizes code around objects that combine state and behavior.</li><li>Java uses classes as blueprints for objects.</li><li>Its core OOP principles are encapsulation, inheritance, polymorphism, and abstraction.</li><li>OOP can improve modularity, reuse, and maintainability when the design fits the problem.</li></ol><div class="follow"><strong>Follow-up:</strong> Is Java a purely object-oriented language?<br><b>Answer:</b> No. Java has primitive types such as <code>int</code> and <code>boolean</code>, and it supports static members and other non-instance-oriented constructs.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">02</span><div class="qtitle">What is the difference between a class and an object?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Classes & objects</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A class defines a type; an object is an instance of that type.</li><li>A class declares the fields and methods available to its instances.</li><li>Each object normally has its own instance-field state.</li><li>A reference variable stores a reference to an object, not the object’s full state directly.</li><li>Many objects can be created from one class.</li></ol><div class="follow"><strong>Follow-up:</strong> Can two references point to the same object?<br><b>Answer:</b> Yes. Assigning one reference to another copies the reference value, so both can refer to the same object.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">03</span><div class="qtitle">Explain encapsulation. Is it the same as data hiding?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Four pillars</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Encapsulation combines state and related operations within a class.</li><li>It controls access to internal state through access modifiers and methods.</li><li>Data hiding is one technique that supports encapsulation, often using <code>private</code>.</li><li>Validation in methods can preserve invariants, such as a nonnegative account deposit.</li><li>Encapsulation reduces coupling between callers and implementation details.</li></ol><div class="follow"><strong>Follow-up:</strong> Should every field have a setter?<br><b>Answer:</b> No. Provide only operations that make sense for the object's rules; unrestricted setters can expose invalid states.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">04</span><div class="qtitle">What is inheritance, and which types does Java support?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Four pillars</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Inheritance lets a subclass extend a superclass using <code>extends</code>.</li><li>It supports an “is-a” relationship and allows subclasses to specialize behavior.</li><li>Java classes support single, multilevel, and hierarchical class inheritance.</li><li>A class cannot directly extend multiple classes.</li><li>A class can implement multiple interfaces, enabling multiple type contracts.</li></ol><div class="follow"><strong>Follow-up:</strong> Are constructors inherited?<br><b>Answer:</b> No. A subclass constructor can call a superclass constructor with <code>super(...)</code>.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">05</span><div class="qtitle">What is polymorphism? Explain compile-time and runtime polymorphism.<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Four pillars</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Polymorphism means one interface or operation can have multiple forms.</li><li>Overloading is commonly called compile-time polymorphism.</li><li>Overloaded methods have different parameter lists, and the compiler chooses the applicable method.</li><li>Overriding supports runtime polymorphism for instance methods.</li><li>At runtime, the actual object's class determines which override is executed.</li></ol><div class="follow"><strong>Follow-up:</strong> Are fields polymorphic like overridden methods?<br><b>Answer:</b> No. Field access is resolved using the compile-time reference type; instance method overrides use runtime dispatch.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">06</span><div class="qtitle">What is abstraction? How does Java implement it?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Four pillars</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Abstraction shows essential behavior while hiding implementation details.</li><li>Abstract classes can include abstract and concrete methods, state, and constructors.</li><li>Interfaces define contracts and can include abstract, default, static, and private methods within Java's rules.</li><li>Clients can program to a type instead of depending on one implementation.</li><li>Abstraction makes systems easier to extend and test when boundaries are well designed.</li></ol><div class="follow"><strong>Follow-up:</strong> Can an abstract class be instantiated directly?<br><b>Answer:</b> No, but a concrete subclass can be instantiated and referenced through the abstract type.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">07</span><div class="qtitle">What is a constructor? How is it different from a method?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Constructors</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A constructor initializes an object during creation.</li><li>Its name matches the class name.</li><li>It has no return type.</li><li>It can be overloaded, but it is neither inherited nor overridden.</li><li>A normal method can have any valid name, return a value, and be called after object creation.</li></ol><div class="follow"><strong>Follow-up:</strong> What happens if you declare no constructor?<br><b>Answer:</b> The compiler provides a default no-argument constructor only when the class declares no constructors.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">08</span><div class="qtitle">Can we overload the main method in Java?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Methods</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Yes, Java permits overloaded methods named <code>main</code>.</li><li>Overloads can have different parameter lists.</li><li>The standard launcher entry point is <code>public static void main(String[] args)</code> for conventional applications.</li><li>Other overloads are not automatically selected as the launch entry point.</li><li>Overloading does not mean changing only the return type.</li></ol><div class="follow"><strong>Follow-up:</strong> Can <code>main</code> be overridden?<br><b>Answer:</b> It is static, so a subclass can hide a static method with the same signature rather than override it.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">09</span><div class="qtitle">What is the difference between method overloading and overriding?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Methods</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Overloading uses the same method name with different parameter lists.</li><li>Overloading does not require inheritance.</li><li>Overriding replaces an inherited instance method implementation with a compatible signature.</li><li>Overload selection is resolved at compile time; override dispatch is based on runtime type.</li><li>Return type alone cannot create an overload; overriding permits covariant reference return types.</li></ol><div class="follow"><strong>Follow-up:</strong> Can a static method be overridden?<br><b>Answer:</b> No. Static methods are hidden, because they belong to the class rather than being dynamically dispatched instance methods.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">10</span><div class="qtitle">Can an abstract class have a constructor and concrete methods?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Abstraction</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Yes, an abstract class can declare constructors.</li><li>Those constructors run as part of creating a concrete subclass object.</li><li>It can define both abstract methods and fully implemented methods.</li><li>It can maintain shared instance state.</li><li>It cannot be instantiated directly with <code>new AbstractType()</code>.</li></ol><div class="follow"><strong>Follow-up:</strong> Why have a constructor if the class cannot be instantiated?<br><b>Answer:</b> It initializes the superclass portion of a concrete subclass object.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">11</span><div class="qtitle">Why does Java not support multiple inheritance of classes?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Inheritance</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Java allows a class to extend only one direct superclass.</li><li>This avoids ambiguity in inheriting implementation and state from multiple class parents.</li><li>The classic “diamond problem” illustrates possible ambiguity when two parents define the same behavior.</li><li>Java provides interfaces for implementing multiple type contracts.</li><li>Interfaces can have default methods, and conflicting inherited defaults may require an explicit resolution.</li></ol><div class="follow"><strong>Follow-up:</strong> Can a class implement two interfaces with the same default method signature?<br><b>Answer:</b> It may need to override the conflicting method and explicitly choose or combine the behavior.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">12</span><div class="qtitle">What do <code>this</code> and <code>super</code> mean?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Keywords</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li><code>this</code> refers to the current object in an instance context.</li><li>It commonly disambiguates a field from a parameter: <code>this.name = name</code>.</li><li><code>this(...)</code> delegates to another constructor in the same class.</li><li><code>super</code> accesses superclass behavior or fields when accessible.</li><li><code>super(...)</code> invokes a superclass constructor.</li></ol><div class="follow"><strong>Follow-up:</strong> Can you use <code>this</code> inside a static method?<br><b>Answer:</b> No, because a static method is not associated with a particular current instance.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">13</span><div class="qtitle">What is the difference between <code>==</code> and <code>equals()</code> for objects?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Object behavior</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>For reference values, <code>==</code> checks whether references identify the same object.</li><li><code>equals()</code> checks logical equality as defined by the class.</li><li>The default implementation inherited from <code>Object</code> behaves like identity comparison.</li><li>Classes such as <code>String</code> override <code>equals()</code> to compare content.</li><li>If you override <code>equals()</code>, you should also implement a consistent <code>hashCode()</code>.</li></ol><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>String a = new String("java");
+String b = new String("java");
+System.out.println(a == b);
+System.out.println(a.equals(b));</code></pre></div><div class="output">false
+true</div><div class="follow"><strong>Follow-up:</strong> Why must equal objects have equal hash codes?<br><b>Answer:</b> Hash-based collections use the hash code to locate candidate buckets; violating the contract can make lookups behave incorrectly.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">14</span><div class="qtitle">What is the purpose of <code>static</code>?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Keywords</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A static field belongs to the class and is shared across instances.</li><li>A static method can be called using the class name.</li><li>A static method cannot directly access instance members without an object reference.</li><li>Static methods are hidden, not overridden.</li><li>Use static for behavior or state genuinely associated with the type, not as a default design choice.</li></ol><div class="follow"><strong>Follow-up:</strong> Can a static method call an instance method directly?<br><b>Answer:</b> Not without an object reference, because there is no implicit current instance.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">15</span><div class="qtitle">What does <code>final</code> mean for variables, methods, and classes?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Keywords</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>A final variable can be assigned only once.</li><li>A final reference cannot point to a different object after assignment, but the referenced object may still be mutable.</li><li>A final method cannot be overridden.</li><li>A final class cannot be subclassed.</li><li>Final can express design constraints and support safer APIs, but does not automatically make an object immutable or thread-safe.</li></ol><div class="follow"><strong>Follow-up:</strong> Is a <code>final ArrayList</code> immutable?<br><b>Answer:</b> No. The reference cannot be reassigned, but elements can still be added or removed unless the list is otherwise restricted.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">16</span><div class="qtitle">Can constructors be overloaded or overridden?<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Constructors</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Answer</h4><ol><li>Constructors can be overloaded with different parameter lists.</li><li>Each constructor can initialize an object in a different way.</li><li>Constructors are not inherited by subclasses.</li><li>Because they are not inherited methods, they cannot be overridden.</li><li>Constructor chaining can reuse initialization with <code>this(...)</code> or <code>super(...)</code>.</li></ol><div class="follow"><strong>Follow-up:</strong> Does a constructor return an object reference explicitly?<br><b>Answer:</b> No. Object creation and reference delivery are handled by the creation expression; constructors have no return type.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">17</span><div class="qtitle">Predict the output: method overriding and runtime polymorphism<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Output prediction</span></div></summary><div class="answer"><h4>Question code</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Parent {
+    void show() { System.out.println("Parent"); }
+}
+class Child extends Parent {
+    @Override void show() { System.out.println("Child"); }
+}
+public class Main {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();
+    }
+}</code></pre></div><h4>Answer</h4><ol><li>Variable <code>p</code> has compile-time type <code>Parent</code>.</li><li>The actual object is an instance of <code>Child</code>.</li><li><code>show()</code> is an overridable instance method.</li><li>Runtime dispatch selects the <code>Child</code> implementation.</li><li>Therefore the output is <code>Child</code>.</li></ol><div class="output">Child</div><div class="follow"><strong>Follow-up:</strong> What if <code>show()</code> were static in both classes?<br><b>Answer:</b> Static method selection is based on the compile-time type of the expression, and the subclass method hides the superclass method.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">18</span><div class="qtitle">Predict the output: field hiding versus method overriding<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Output prediction</span></div></summary><div class="answer"><h4>Question code</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class A {
+    int value = 1;
+    void print() { System.out.println("A"); }
+}
+class B extends A {
+    int value = 2;
+    @Override void print() { System.out.println("B"); }
+}
+public class Main {
+    public static void main(String[] args) {
+        A obj = new B();
+        System.out.println(obj.value);
+        obj.print();
+    }
+}</code></pre></div><h4>Answer</h4><ol><li>The declared reference type is <code>A</code>.</li><li>Field access is resolved using the reference's compile-time type.</li><li>So <code>obj.value</code> reads <code>A.value</code>, which is <code>1</code>.</li><li>The instance method is overridden in <code>B</code>.</li><li>Runtime dispatch calls <code>B.print()</code>.</li></ol><div class="output">1
+B</div><div class="follow"><strong>Follow-up:</strong> Is field hiding the same as overriding?<br><b>Answer:</b> No. Fields are hidden, while overridable instance methods use runtime dispatch.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">19</span><div class="qtitle">What is composition, and why can it be preferable to inheritance?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Design</span></div></summary><div class="answer"><h4>Answer</h4><ol><li>Composition builds a class by giving it references to other objects it uses.</li><li>It models a “has-a” relationship rather than an “is-a” relationship.</li><li>It allows behavior to be swapped or combined without creating deep class hierarchies.</li><li>It can reduce coupling to superclass implementation details.</li><li>Inheritance remains appropriate when the subtype relationship is valid and substitutability is preserved.</li></ol><div class="follow"><strong>Follow-up:</strong> Give an example of composition.<br><b>Answer:</b> A <code>Car</code> has an <code>Engine</code>; the car delegates engine-related behavior to that object.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">20</span><div class="qtitle">What is the relationship between <code>equals()</code> and <code>hashCode()</code>?<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Object contract</span></div></summary><div class="answer"><h4>Answer</h4><ol><li>If two objects are equal according to <code>equals()</code>, they must return the same hash code.</li><li>Unequal objects may share a hash code; collisions are permitted.</li><li>Hash-based collections use both hash codes and equality checks.</li><li>Overriding one without the other can break expected collection behavior.</li><li>Fields used for equality should be considered carefully, especially if they can change while an object is a map key.</li></ol><div class="follow"><strong>Follow-up:</strong> Must unequal objects have different hash codes?<br><b>Answer:</b> No. Different hash codes are useful but not required for unequal objects.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">21</span><div class="qtitle">What is upcasting and downcasting?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Type relationships</span></div></summary><div class="answer"><h4>Answer</h4><ol><li>Upcasting assigns a subclass object to a superclass or interface reference and is generally implicit.</li><li>It lets code work through a common abstraction.</li><li>Downcasting converts a base reference to a more specific subtype reference.</li><li>An invalid downcast throws <code>ClassCastException</code> at runtime.</li><li>Use <code>instanceof</code> when a type check is necessary, and prefer polymorphism when it avoids casting.</li></ol><div class="follow"><strong>Follow-up:</strong> Does upcasting remove the subclass object?<br><b>Answer:</b> No. It changes the reference's static type, not the actual runtime object.</div></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">22</span><div class="qtitle">What is the difference between an association, aggregation, and composition?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Object relationships</span></div></summary><div class="answer"><h4>Answer</h4><ol><li>Association is a general relationship between objects.</li><li>Aggregation models a whole-part relationship where the part can live independently.</li><li>Composition models stronger ownership, with the whole typically controlling the part's lifecycle.</li><li>Examples are doctor-patient, team-player, and order-order-line, respectively.</li><li>These are design concepts, not separate Java language keywords.</li></ol><div class="follow"><strong>Follow-up:</strong> Does Java enforce composition automatically?<br><b>Answer:</b> No. The design and lifecycle rules are implemented by the application code.</div></div></details>
+</div>
+</section>
+
+<section class="section searchable" id="practice">
+<h2>7. Practice lab — questions with solutions</h2><p class="section-intro">Try to reason about the solution before opening each answer.</p>
+<details class="qa"><summary class="qhead"><span class="qnum">P1</span><div class="qtitle">Beginner: Create a class called Book with title and author fields and a method to display them.<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Coding</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Book {
+    String title;
+    String author;
+    void display() {
+        System.out.println(title + " by " + author);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Book book = new Book();
+        book.title = "Clean Code";
+        book.author = "Robert C. Martin";
+        book.display();
+    }
+}</code></pre></div><div class="output">Clean Code by Robert C. Martin</div><p><b>Explanation:</b> The class defines two fields and a method. The object stores the provided values, then calls the method. In a larger application, private fields and a constructor would usually provide better control.</p></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">P2</span><div class="qtitle">Beginner: Use encapsulation to prevent a negative value from being set as a product price.<div class="meta"><span class="badge easy">Beginner</span><span class="badge">Coding</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>class Product {
+    private double price;
+    public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
+        this.price = price;
+    }
+    public double getPrice() { return price; }
+}
+public class Main {
+    public static void main(String[] args) {
+        Product p = new Product();
+        p.setPrice(99.5);
+        System.out.println(p.getPrice());
+    }
+}</code></pre></div><div class="output">99.5</div><p><b>Explanation:</b> The field is private. The setter validates before changing it. This teaching example allows zero and uses <code>double</code>; financial applications should generally use integer minor units or <code>BigDecimal</code> with a defined rounding policy.</p></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">P3</span><div class="qtitle">Intermediate: Create a Shape superclass and Circle subclass that override an area method.<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Inheritance</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>abstract class Shape {
+    abstract double area();
+}
+class Circle extends Shape {
+    private final double radius;
+    Circle(double radius) {
+        if (radius < 0) throw new IllegalArgumentException();
+        this.radius = radius;
+    }
+    @Override double area() {
+        return Math.PI * radius * radius;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Shape s = new Circle(3);
+        System.out.printf("%.2f%n", s.area());
+    }
+}</code></pre></div><div class="output">28.27</div><p><b>Explanation:</b> <code>Shape</code> declares the contract. <code>Circle</code> implements it. The base reference invokes the concrete object's override at runtime. Time and space complexity for this constant-time area calculation are both O(1).</p></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">P4</span><div class="qtitle">Intermediate: Fix this error — a class has two methods with the same name and parameters but different return types.<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Debugging</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Incorrect code</h4><div class="codebox"><div class="codehead"><span>JAVA — DOES NOT COMPILE</span></div><pre><code>int calculate(int x) { return x * 2; }
+double calculate(int x) { return x * 2.0; }</code></pre></div><h4>Correction</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>int calculate(int x) { return x * 2; }
+double calculate(double x) { return x * 2.0; }</code></pre></div><p><b>Explanation:</b> Java cannot distinguish overloads using only the return type. Changing a parameter type creates a distinct signature. Other valid fixes include choosing a different method name.</p></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">P5</span><div class="qtitle">Output prediction: What is printed when a subclass overrides a method?<div class="meta"><span class="badge medium">Intermediate</span><span class="badge">Output</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>Code</h4><div class="codebox"><div class="codehead"><span>JAVA</span></div><pre><code>class Base { void run() { System.out.println("Base"); } }
+class Child extends Base { void run() { System.out.println("Child"); } }
+Base b = new Child();
+b.run();</code></pre></div><div class="output">Child</div><p><b>Explanation:</b> The runtime object is <code>Child</code>, so its override runs. This snippet assumes it is placed inside a valid Java class and method.</p></div></details>
+<details class="qa"><summary class="qhead"><span class="qnum">P6</span><div class="qtitle">Advanced: Design a notification service that can send Email or SMS notifications without changing client logic.<div class="meta"><span class="badge advanced">Advanced</span><span class="badge">Scenario</span></div></div><span class="chevron">⌄</span></summary><div class="answer"><h4>One possible solution</h4><div class="codebox"><div class="codehead"><span>JAVA</span><button class="btn copy-btn">Copy code</button></div><pre><code>interface Notifier {
+    void send(String message);
+}
+class EmailNotifier implements Notifier {
+    public void send(String message) {
+        System.out.println("Email: " + message);
+    }
+}
+class SmsNotifier implements Notifier {
+    public void send(String message) {
+        System.out.println("SMS: " + message);
+    }
+}
+class AlertService {
+    private final Notifier notifier;
+    AlertService(Notifier notifier) { this.notifier = notifier; }
+    void alert(String message) { notifier.send(message); }
+}
+public class Main {
+    public static void main(String[] args) {
+        new AlertService(new EmailNotifier()).alert("Build passed");
+        new AlertService(new SmsNotifier()).alert("Build passed");
+    }
+}</code></pre></div><div class="output">Email: Build passed
+SMS: Build passed</div><p><b>Explanation:</b> The service uses an interface rather than depending on one concrete notifier. Passing an implementation through the constructor is a simple form of dependency injection. A production notifier would also need error handling, retries, configuration, and secure credentials.</p></div></details>
+<div class="card" style="margin-top:18px">
+<h3>Quick interactive check</h3><p id="quizQuestion" style="font-weight:700">Which OOP principle protects object state through controlled access?</p>
+<div id="quizOptions"><button class="quiz-option" data-correct="false">Inheritance</button><button class="quiz-option" data-correct="true">Encapsulation</button><button class="quiz-option" data-correct="false">Polymorphism</button><button class="quiz-option" data-correct="false">Compilation</button></div>
+<div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+<button class="btn" id="nextQuiz">Next question</button>
+</div>
+</section>
+
+<section class="section searchable" id="revision">
+<h2>8. Quick revision sheet</h2>
+<div class="subsection">
+<h3>Definitions to memorize</h3>
+<div class="grid2">
+<div class="card"><b style="color:var(--blue)">Class</b><p>A blueprint defining fields and methods for objects.</p></div>
+<div class="card"><b style="color:var(--blue)">Object</b><p>A runtime instance with identity, state, and behavior.</p></div>
+<div class="card"><b style="color:var(--blue)">Encapsulation</b><p>Bundle state and behavior; control access to internal data.</p></div>
+<div class="card"><b style="color:var(--blue)">Inheritance</b><p>Derive a class from another to specialize and reuse behavior.</p></div>
+<div class="card"><b style="color:var(--blue)">Polymorphism</b><p>One operation or reference type can represent multiple behaviors.</p></div>
+<div class="card"><b style="color:var(--blue)">Abstraction</b><p>Expose essential operations while hiding implementation details.</p></div>
+</div>
+</div>
+<div class="subsection">
+<h3>Top interview reminders</h3>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Java classes do not support multiple inheritance of classes; interfaces can be multiple.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Constructors have no return type and are not inherited or overridden.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Overloading changes the parameter list; return type alone is insufficient.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Overridden instance methods use runtime dispatch; fields do not.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Private fields plus thoughtful public methods support encapsulation.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Abstract classes can have constructors and concrete methods; interfaces have no constructors.</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>If overriding equals(), implement a consistent hashCode().</span></label>
+<label class="checkrow"><input type="checkbox" class="revision-check"><span>Prefer composition over inheritance when it models the relationship more clearly.</span></label>
+</div>
+<div class="warning"><b>Common interview mistakes:</b> Saying Java is purely object-oriented; claiming constructors are inherited; saying private means “visible to subclasses”; confusing abstraction with encapsulation; and assuming <code>==</code> compares String contents.</div>
+</section>
+
+<section class="section searchable" id="mock">
+<h2>9. Mini mock interview</h2>
+<p class="section-intro">Practice answering aloud in 30–60 seconds, then compare your response with the model answer.</p>
+<div class="qa"><div class="qhead"><span class="qnum">M1</span><div class="qtitle">Explain the four pillars using one sentence each.</div></div><div class="answer"><ol><li><b>Encapsulation:</b> Keep state and behavior together and control how state is changed.</li><li><b>Inheritance:</b> Create a specialized class from a more general class.</li><li><b>Polymorphism:</b> Use a common operation or parent type while allowing different implementations.</li><li><b>Abstraction:</b> Show the contract needed by a caller and hide implementation details.</li><li>Example: a checkout service can use a <code>PaymentMethod</code> interface implemented by card and UPI payment classes.</li></ol></div></div>
+<div class="qa"><div class="qhead"><span class="qnum">M2</span><div class="qtitle">Why is <code>Parent p = new Child();</code> useful?</div></div><div class="answer"><ol><li>The reference is typed as <code>Parent</code>, while the object is a <code>Child</code>.</li><li>It allows client code to depend on a general type.</li><li>Overridden instance methods dispatch to the child's implementation.</li><li>The code can work with different subclasses through the same API.</li><li>The reference can only access members available through its compile-time type without casting.</li></ol></div></div>
+<div class="qa"><div class="qhead"><span class="qnum">M3</span><div class="qtitle">When would you choose an interface over an abstract class?</div></div><div class="answer"><ol><li>Choose an interface when you need to define a capability or contract.</li><li>It allows unrelated classes to share a common type.</li><li>A class can implement multiple interfaces.</li><li>Choose an abstract class when related subclasses need shared state or common implementation.</li><li>Consider existing class hierarchy, API design, and expected extension points.</li></ol></div></div>
+<div class="qa"><div class="qhead"><span class="qnum">M4</span><div class="qtitle">How would you make a class safer to use?</div></div><div class="answer"><ol><li>Keep fields private unless wider access is intentional.</li><li>Validate inputs at the class boundary.</li><li>Expose meaningful operations instead of arbitrary state mutation.</li><li>Use immutable fields or immutable objects where practical.</li><li>Document invariants and test invalid as well as valid cases.</li></ol></div></div>
+</section>
+<div class="footer"><b>Study note:</b> Examples are self-contained teaching snippets. Save each complete example as <code>Main.java</code> when it contains a public <code>Main</code> class, then run with a compatible JDK using <code>javac Main.java</code> and <code>java Main</code>. Some snippets are intentionally partial and are labeled as such. Core language examples use conventional modern Java syntax; consult the JDK version used in your course or interview environment.</div>
+</main>
+</div>
+<script>
+const allQuestions = () => [...document.querySelectorAll('#qaList details.qa, #practice details.qa')];
+const expandBtn = document.getElementById('expandBtn');
+let expanded = false;
+function setAll(open){allQuestions().forEach(q=>q.open=open);expanded=open;expandBtn.textContent=open?'Collapse all':'Expand all'}
+expandBtn.addEventListener('click',()=>setAll(!expanded));
+document.getElementById('openAll').addEventListener('click',()=>setAll(true));
+document.getElementById('closeAll').addEventListener('click',()=>setAll(false));
+document.getElementById('questionCount').textContent = `${document.querySelectorAll('#qaList details.qa').length} interview questions`;
+document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click',async()=>{
+ const code=btn.closest('.codebox').querySelector('pre').innerText;
+ try{await navigator.clipboard.writeText(code);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy code',1300)}
+ catch(e){const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy code',1300)}
+}));
+document.getElementById('mobileNav').addEventListener('change',e=>{if(e.target.value)document.querySelector(e.target.value)?.scrollIntoView({behavior:'smooth'})});
+const searchInput=document.getElementById('searchInput');
+searchInput.addEventListener('input',()=>{
+ const term=searchInput.value.trim().toLowerCase();
+ document.querySelectorAll('main .searchable, main .qa, main .example, main .card, main .subsection').forEach(el=>{
+   if(!term){el.classList.remove('hidden-by-search');return}
+   const match=el.innerText.toLowerCase().includes(term);
+   el.classList.toggle('hidden-by-search',!match);
+ });
+});
+const checks=[...document.querySelectorAll('.revision-check')];
+function updateProgress(){const count=checks.filter(c=>c.checked).length;document.getElementById('progressText').textContent=`${count} / ${checks.length} complete`;document.getElementById('progressFill').style.width=`${count/checks.length*100}%`}
+checks.forEach(c=>c.addEventListener('change',updateProgress));
+const quizzes=[
+ {q:'Which OOP principle protects object state through controlled access?',o:['Inheritance','Encapsulation','Polymorphism','Compilation'],a:1,e:'Encapsulation controls access to state and exposes deliberate operations.'},
+ {q:'Which method feature is selected based on the runtime object type?',o:['Field access','Overridden instance method','Constructor overload','Static method hiding'],a:1,e:'Overridden instance methods use runtime dispatch.'},
+ {q:'Can two overloaded methods differ only by return type?',o:['Yes','No','Only if static','Only in subclasses'],a:1,e:'The parameter list must differ; return type alone cannot distinguish overloads.'},
+ {q:'Which Java type can a class implement multiple times with different interfaces?',o:['Superclass','Interface','Constructor','Package'],a:1,e:'A class can implement multiple interfaces, though duplicate declarations and default-method conflicts have rules.'},
+ {q:'What does a final object reference guarantee?',o:['The object is immutable','The reference cannot be reassigned','The object is thread-safe','The class cannot be extended'],a:1,e:'A final reference cannot be pointed at another object, but the referenced object may still be mutable.'}
+];
+let qi=0;
+function renderQuiz(){const q=quizzes[qi];document.getElementById('quizQuestion').textContent=`${qi+1}/${quizzes.length}. ${q.q}`;const box=document.getElementById('quizOptions');box.innerHTML='';q.o.forEach((opt,i)=>{const b=document.createElement('button');b.className='quiz-option';b.textContent=opt;b.addEventListener('click',()=>{document.querySelectorAll('.quiz-option').forEach(x=>x.disabled=true);document.getElementById('quizFeedback').textContent=(i===q.a?'Correct! ':'Not quite. ')+q.e;document.getElementById('quizFeedback').style.color=i===q.a?'var(--green)':'var(--amber)'});box.appendChild(b)});document.getElementById('quizFeedback').textContent='';document.getElementById('quizFeedback').style.color='var(--muted)'}
+document.getElementById('nextQuiz').addEventListener('click',()=>{qi=(qi+1)%quizzes.length;renderQuiz()});
+renderQuiz();
+const sections=[...document.querySelectorAll('main section[id]')];
+const navlinks=[...document.querySelectorAll('.navlink')];
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){navlinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id))}}),{rootMargin:'-20% 0px -70% 0px'});sections.forEach(s=>observer.observe(s))}
+</script>
+</body>
+</html>
