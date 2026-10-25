@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1020" />
+
     <title>Java Notes | Learn Forge</title>
+
+    <meta
+      name="description"
+      content="Learn Core Java, OOP concepts, exception handling, and multithreading with clear notes and practical examples."
+    />
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
@@ -77,10 +83,15 @@
         place-items: center;
         width: 42px;
         height: 42px;
+        flex-shrink: 0;
         border-radius: 13px;
         background: linear-gradient(135deg, #8297ff, #6e63d9);
         color: white;
         font-size: 21px;
+      }
+
+      .brand-name {
+        color: var(--accent);
       }
 
       .nav-label {
@@ -189,6 +200,7 @@
         position: relative;
         display: flex;
         flex-direction: column;
+        min-width: 0;
         min-height: 290px;
         padding: 24px;
         overflow: hidden;
@@ -207,6 +219,11 @@
         box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
       }
 
+      .note-card:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+
       .note-icon {
         display: grid;
         place-items: center;
@@ -218,12 +235,24 @@
         background: #273252;
       }
 
+      /* Core Java icon */
+      .note-card:nth-child(1) .note-icon {
+        background: #342e24;
+      }
+
+      /* OOP icon */
       .note-card:nth-child(2) .note-icon {
         background: #3a293b;
       }
 
+      /* Exception Handling icon */
       .note-card:nth-child(3) .note-icon {
         background: #203b3b;
+      }
+
+      /* Multithreading icon */
+      .note-card:nth-child(4) .note-icon {
+        background: #3a3025;
       }
 
       .tag {
@@ -241,6 +270,7 @@
 
       .note-card h3 {
         font-size: 20px;
+        line-height: 1.4;
         margin-bottom: 10px;
         letter-spacing: -0.5px;
       }
@@ -255,6 +285,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;
         margin-top: auto;
         padding-top: 15px;
         border-top: 1px solid var(--border);
@@ -264,6 +295,7 @@
       }
 
       .arrow {
+        flex-shrink: 0;
         font-size: 20px;
         transition: transform 0.2s ease;
       }
@@ -284,6 +316,7 @@
       }
 
       .tip-icon {
+        flex-shrink: 0;
         font-size: 22px;
       }
 
@@ -360,6 +393,7 @@
         *::after {
           scroll-behavior: auto !important;
           transition: none !important;
+          animation: none !important;
         }
       }
     </style>
@@ -368,22 +402,27 @@
   <body>
     <header>
       <nav class="container">
-        <a class="brand" href="./index.html">
-          <span class="brand-icon">J</span>
-          <span> <span style="color: #8b9cff"> Java Notes</span></span>
+        <a class="brand" href="./index.html" aria-label="Java Notes home">
+          <span class="brand-icon" aria-hidden="true">J</span>
+          <span class="brand-name">Java Notes</span>
         </a>
-        <span class="nav-label">Core concepts · Learning notes</span>
+
+        <span class="nav-label"> Core concepts · Learning notes </span>
       </nav>
     </header>
 
     <main class="container">
+      <!-- Hero Section -->
       <section class="hero">
         <div class="eyebrow">
-          <span class="dot"></span>
+          <span class="dot" aria-hidden="true"></span>
           YOUR JAVA LEARNING SPACE
         </div>
 
-        <h1>Master Java, one concept <span>at a time.</span></h1>
+        <h1>
+          Master Java, one concept
+          <span>at a time.</span>
+        </h1>
 
         <p>
           Clear notes, practical examples, and essential concepts to help you
@@ -392,105 +431,137 @@
         </p>
       </section>
 
+      <!-- Statistics -->
       <section class="stats" aria-label="Notes overview">
         <div class="stat">
-          <strong>03</strong>
+          <strong>04</strong>
           <span>Learning modules</span>
         </div>
+
         <div class="stat">
           <strong>Java</strong>
           <span>Programming language</span>
         </div>
+
         <div class="stat">
           <strong>Learn</strong>
           <span>Practice at your pace</span>
         </div>
       </section>
 
+      <!-- Learning Modules -->
       <section id="notes">
         <div class="section-heading">
           <div>
             <h2>Explore your notes</h2>
             <p>Choose a module to open its complete notes.</p>
           </div>
-          <p>3 topics available</p>
+
+          <p>4 topics available</p>
         </div>
 
         <div class="notes-grid">
+          <!-- 1. Core Java -->
           <a class="note-card" href="./CoreJava/">
-            <div class="note-icon">🧩</div>
-            <span class="tag">Fundamentals</span>
+            <div class="note-icon" aria-hidden="true">☕</div>
+
+            <span class="tag">Java fundamentals</span>
+
             <h3>Core Java</h3>
+
             <p>
-              Learn classes, objects, encapsulation, inheritance, polymorphism,
-              abstraction, and core OOP concepts.
+              Learn Java syntax, variables, data types, operators, control
+              statements, arrays, methods, and other essential programming
+              fundamentals.
             </p>
+
             <div class="card-link">
-              <span>Explore OOP notes</span>
-              <span class="arrow">→</span>
+              <span>Explore Core Java</span>
+              <span class="arrow" aria-hidden="true">→</span>
             </div>
           </a>
 
+          <!-- 2. Object-Oriented Programming -->
           <a class="note-card" href="./OOPS/index.html">
-            <div class="note-icon">🧩</div>
-            <span class="tag">Fundamentals</span>
+            <div class="note-icon" aria-hidden="true">🧩</div>
+
+            <span class="tag">OOP concepts</span>
+
             <h3>Object-Oriented Programming</h3>
+
             <p>
-              Learn classes, objects, encapsulation, inheritance, polymorphism,
-              abstraction, and core OOP concepts.
+              Understand classes, objects, constructors, encapsulation,
+              inheritance, polymorphism, and abstraction with practical
+              examples.
             </p>
+
             <div class="card-link">
               <span>Explore OOP notes</span>
-              <span class="arrow">→</span>
+              <span class="arrow" aria-hidden="true">→</span>
             </div>
           </a>
 
+          <!-- 3. Exception Handling -->
           <a class="note-card" href="./ExceptionHandling/index.html">
-            <div class="note-icon">🛡️</div>
+            <div class="note-icon" aria-hidden="true">🛡️</div>
+
             <span class="tag">Error management</span>
+
             <h3>Exception Handling</h3>
+
             <p>
-              Understand exceptions, try-catch-finally, throw, throws, custom
-              exceptions, and error handling.
+              Learn checked and unchecked exceptions, try-catch-finally, throw,
+              throws, custom exceptions, and reliable error handling.
             </p>
+
             <div class="card-link">
               <span>Explore exception notes</span>
-              <span class="arrow">→</span>
+              <span class="arrow" aria-hidden="true">→</span>
             </div>
           </a>
 
+          <!-- 4. Multithreading -->
           <a class="note-card" href="./MultiThreading/">
-            <div class="note-icon">⚡</div>
+            <div class="note-icon" aria-hidden="true">⚡</div>
+
             <span class="tag">Concurrency</span>
+
             <h3>Multithreading</h3>
+
             <p>
-              Explore threads, thread life cycles, synchronization, concurrency,
-              and executing tasks simultaneously.
+              Explore thread creation, thread life cycles, synchronization,
+              inter-thread communication, and concurrent task execution.
             </p>
+
             <div class="card-link">
               <span>Explore multithreading notes</span>
-              <span class="arrow">→</span>
+              <span class="arrow" aria-hidden="true">→</span>
             </div>
           </a>
         </div>
       </section>
 
+      <!-- Learning Tip -->
       <aside class="tip">
-        <span class="tip-icon">💡</span>
+        <span class="tip-icon" aria-hidden="true">💡</span>
+
         <div>
           <h3>Recommended learning path</h3>
+
           <p>
-            Start with OOP fundamentals, move on to exception handling, and then
-            explore multithreading. Practice the examples as you progress
-            through each topic.
+            Start with Core Java fundamentals, then learn object-oriented
+            programming concepts. Continue with exception handling and finish
+            with multithreading to build a strong foundation in Java. Practice
+            the examples as you progress through each topic.
           </p>
         </div>
       </aside>
     </main>
 
+    <!-- Footer -->
     <footer>
       <div class="container">
-        Java Learning Notes · Learn something new every day.
+        Java Learning Notes · Learn, practice, and grow every day.
       </div>
     </footer>
   </body>
