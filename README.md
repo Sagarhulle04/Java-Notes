@@ -652,3 +652,209 @@ A comprehensive checklist of topics commonly covered in Java technical interview
     Use the checkboxes to track completed topics.
 
 Note: This is a broad interview-preparation checklist, not a guarantee that every topic will be asked. Prioritize topics according to the job description, your experience level, and the company.
+
+1. OOP Fundamentals
+   Object-Oriented Programming (OOP)
+
+Classes and Objects
+
+Constructors
+
+Constructor Overloading
+
+Default Constructor vs. No-Argument Constructor
+
+Constructor Chaining (this() and super())
+
+this Keyword
+
+super Keyword
+
+static Keyword and Static Members
+
+final Keyword — Variables, Methods, and Classes
+
+Instance Initializer Blocks
+
+Static Initializer Blocks
+
+Object Initialization Order
+
+Access Modifiers (private, default, protected, public)
+
+Packages in Java
+
+2. Inheritance
+   Inheritance
+
+Types of Inheritance
+
+Single Inheritance
+
+Multilevel Inheritance
+
+Hierarchical Inheritance
+
+Multiple Inheritance and Java's Limitations
+
+Multiple Inheritance Through Interfaces
+
+Constructor Behavior in Inheritance
+
+Constructor Execution Order
+
+Method Hiding vs. Method Overriding
+
+Field Hiding
+
+Inheritance and final Classes/Methods
+
+The Diamond Problem
+
+Composition Over Inheritance
+
+3. Polymorphism
+   Polymorphism
+
+Compile-Time Polymorphism
+
+Runtime Polymorphism
+
+Method Overloading
+
+Method Overriding
+
+Static Binding vs. Dynamic Binding
+
+Dynamic Method Dispatch
+
+Covariant Return Types
+
+Upcasting and Downcasting
+
+instanceof Operator and Type Checking
+
+Static Methods vs. Instance Methods
+
+Private Methods and Polymorphism
+
+Final Methods and Polymorphism
+
+Default Methods in Interfaces
+
+4. Abstraction
+   Abstraction
+
+Abstract Classes
+
+Abstract Methods
+
+Interfaces
+
+Abstract Class vs. Interface
+
+Interface Inheritance
+
+Implementing Multiple Interfaces
+
+Interface Reference Variables
+
+Default and Static Methods in Interfaces
+
+Private Methods in Interfaces
+
+Functional Interfaces
+
+Marker Interfaces
+
+Sealed Classes and Sealed Interfaces
+
+Records in Java
+
+5. Encapsulation
+   Encapsulation
+
+Data Hiding
+
+Getters and Setters
+
+Immutable Classes and Objects
+
+Creating Immutable Classes
+
+Defensive Copying
+
+Access Control and Encapsulation
+
+6. Relationships Between Classes
+   Association
+
+Aggregation
+
+Composition
+
+Dependency Relationship
+
+Dependency vs. Association
+
+IS-A Relationship
+
+HAS-A Relationship
+
+Object References and Object Graphs
+
+Delegation
+
+Composition vs. Inheritance
+
+Loose Coupling and High Cohesion
+
+Law of Demeter
+
+Tell, Don't Ask Principle
+
+7. Object Class and Object Methods
+   The Object Class
+
+toString() Method
+
+equals() Method
+
+hashCode() Method
+
+== vs. equals()
+
+getClass() Method
+
+clone() Method
+
+Cloneable Interface
+
+Shallow Copy vs. Deep Copy
+
+Object Identity vs. Object Equality
+
+wait(), notify(), and notifyAll()
+
+finalize() and Why It Is Deprecated
+
+8. Object Creation, Memory, and Lifecycle
+   Object Creation in Java
+
+Object Lifecycle
+
+Garbage Collection
+
+Stack vs. Heap Memory
+
+Reference Variables and null
+
+Pass-by-Value in Java
+
+Passing Object References to Methods
+
+Object Copying Techniques
+
+Serialization and Deserialization
+
+Reflection and Runtime Type Inspection
