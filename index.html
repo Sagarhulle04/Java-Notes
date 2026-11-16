@@ -9,7 +9,7 @@
 
     <meta
       name="description"
-      content="Learn Core Java, OOP concepts, exception handling, and multithreading with clear notes and practical examples."
+      content="Learn Core Java, OOP concepts, exception handling, multithreading, and Harshit Sir lecture notes."
     />
 
     <style>
@@ -235,22 +235,18 @@
         background: #273252;
       }
 
-      /* Core Java icon */
       .note-card:nth-child(1) .note-icon {
         background: #342e24;
       }
 
-      /* OOP icon */
       .note-card:nth-child(2) .note-icon {
         background: #3a293b;
       }
 
-      /* Exception Handling icon */
       .note-card:nth-child(3) .note-icon {
         background: #203b3b;
       }
 
-      /* Multithreading icon */
       .note-card:nth-child(4) .note-icon {
         background: #3a3025;
       }
@@ -302,6 +298,34 @@
 
       .note-card:hover .arrow {
         transform: translateX(5px);
+      }
+
+      /* Harshit Sir Lecture Notes */
+
+      .lecture-section {
+        margin-top: 65px;
+      }
+
+      .lecture-section .section-heading {
+        margin-bottom: 22px;
+      }
+
+      .lecture-card {
+        background: linear-gradient(145deg, #1c2542, #111a30);
+        border: 1px solid #46547d;
+      }
+
+      .lecture-card .note-icon {
+        background: #34315c;
+      }
+
+      .lecture-card .tag {
+        background: #34315c;
+        color: #c6ccff;
+      }
+
+      .lecture-card:hover {
+        border-color: #a5aaff;
       }
 
       .tip {
@@ -449,7 +473,45 @@
         </div>
       </section>
 
-      <!-- Learning Modules -->
+      <!-- Harshit Sir Lecture Notes Section -->
+      <section class="lecture-section" id="harshit-lectures">
+        <div class="section-heading">
+          <div>
+            <h2>Harshit Sir Lecture Notes</h2>
+            <p>Study materials, lecture-wise notes, and important concepts.</p>
+          </div>
+
+          <p>Lecture resources</p>
+        </div>
+
+        <div class="notes-grid">
+          <!-- Lecture Notes -->
+
+          <a
+            class="note-card lecture-card"
+            href="./HarshitSirNotes/ArrayIntroduction.html"
+          >
+            <div class="note-icon" aria-hidden="true">📊</div>
+
+            <span class="tag">Java · Arrays</span>
+
+            <h3>Introduction to Arrays</h3>
+
+            <p>
+              Learn the fundamentals of arrays in Java, including array
+              declaration, initialization, accessing elements, array traversal,
+              memory concepts, and practical examples.
+            </p>
+
+            <div class="card-link">
+              <span>Explore Array Notes</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Java Learning Modules -->
       <section id="notes">
         <div class="section-heading">
           <div>
@@ -481,7 +543,7 @@
             </div>
           </a>
 
-          <!-- 2. Object-Oriented Programming -->
+          <!-- 2. OOP -->
           <a class="note-card" href="./OOPS/index.html">
             <div class="note-icon" aria-hidden="true">🧩</div>
 
@@ -551,8 +613,9 @@
           <p>
             Start with Core Java fundamentals, then learn object-oriented
             programming concepts. Continue with exception handling and finish
-            with multithreading to build a strong foundation in Java. Practice
-            the examples as you progress through each topic.
+            with multithreading to build a strong foundation in Java. Use
+            Harshit Sir's lecture notes for additional explanations and practice
+            the examples as you progress.
           </p>
         </div>
       </aside>
